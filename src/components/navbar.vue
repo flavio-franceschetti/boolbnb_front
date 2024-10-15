@@ -12,7 +12,7 @@ export default {
         <!-- Logo -->
         <div>
             <!-- logo -->
-            <img src="src/public/img/logo_bnb" alt=""> 
+            <!-- <img src="../../public/img/logo_bnb.png" alt="">  -->
             <!-- titolo -->
             <span></span>
         </div>
