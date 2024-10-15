@@ -6,11 +6,14 @@ export default {
 
 <template>
   
-    
+    <div class="searchbar">
+        
+    </div>
 
 </template>
 
 
-<style>
+<style lang="scss">
+
 
 </style>
