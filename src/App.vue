@@ -1,10 +1,14 @@
-<script setup>
+<script>
 // App principale di Vue
 
 // Imports
 import navbar from "./components/navbar.vue";
-import searchbar from "./components/searchbar.vue";
 
+export default{
+  components:{
+    navbar
+  }
+}
 
 </script>
 
@@ -12,8 +16,7 @@ import searchbar from "./components/searchbar.vue";
   
   <!-- Navbar -->
   <navbar></navbar>
-  <!-- Searchbar -->
-  <searchbar></searchbar>
+ 
 </template>
 
 <style scoped>
