@@ -17,9 +17,9 @@ export default {
     <div class="logo d-flex align-items-center justify-content-around">
       <div>
         <!-- logo -->
-      <img src="../../public/img/logo_bnb.png" alt="" />
-      <!-- titolo -->
-      <span>Boolbnb</span>
+        <img src="../../public/img/logo_bnb.png" alt="" />
+        <!-- titolo -->
+        <span>Boolbnb</span>
       </div>
     </div>
 
@@ -43,12 +43,16 @@ export default {
 
       <!-- button login -->
       <div class="radius">
-        <i class="fa-solid fa-bars"></i>
-        <i class="fa-solid fa-user p-" ></i>
+        <a href="http://127.0.0.1:8000/register">
+          <i class="fa-solid fa-user-plus"></i
+        ></a>
+        
+        <a href="http://127.0.0.1:8000/login"
+          ><i class="fa-solid fa-user"> </i>
+        </a>
       </div>
     </div>
   </div>
-
   <!-- Container Down -->
   <div class="container-fluid d-flex justify-content-around">
     <!-- Searchbar -->
@@ -76,12 +80,12 @@ export default {
   width: 10%;
 }
 
-.logo{
+.logo {
   padding-right: 10%;
 }
 
 /* Login padding */
-.login{
+.login {
   padding-left: 100px;
   padding-right: 100px;
 }
