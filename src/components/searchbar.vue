@@ -35,6 +35,7 @@ export default {
 
 
 <style lang="scss" scoped>
+@use '../style.scss' as *;
 
 * {
     box-sizing: border-box;
@@ -45,7 +46,7 @@ export default {
     align-items: center;
     border: 1px solid --white-color;
     border-radius: 50px;
-    width: 53rem;
+    width: 50rem;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     font-weight: 6px;
@@ -53,7 +54,7 @@ export default {
 }
 
 .search-item {
-    flex: 1;
+    width: calc(100% / 4);
     position: relative;
     padding: 10px 15px;
     display: flex;
@@ -85,8 +86,8 @@ export default {
 }
 
 .search-item-last {
+    width: calc(100% / 4);
     position: relative;
-    flex: 1;
     padding: 0 5px;
     display: flex;
     align-items: center;
@@ -110,13 +111,14 @@ export default {
     border: none;
     outline: none;
     padding: 0 5px;
-    font-size: 14px; 
+    font-size: 14px;
+    width: 100%; 
 }
 
 
 .search-btn {
     position: absolute;
-    background-color: #ff385c;
+    background-color: $green-color;
     border: none;
     border-radius: 50%;
     padding: 10px 15px;
