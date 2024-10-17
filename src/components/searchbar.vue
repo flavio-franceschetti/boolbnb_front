@@ -130,7 +130,7 @@ export default {
 }
 
 .search-btn:hover {
-    background-color: #e63950;
+    background-color: #2c9444;
 }
 
 </style>
