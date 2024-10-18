@@ -24,10 +24,6 @@ export default {
 <style lang="scss" scoped>
 @use "../style.scss" as *;
 
-* {
-  box-sizing: border-box;
-}
-
 .search-bar {
   display: flex;
   align-items: center;
