@@ -25,17 +25,18 @@ export default {
     </div>
 
     <!-- Searcbar -->
-    <div>
+    <div class="type">
       <Searchbar></Searchbar>
     </div>
 
     <!-- Login -->
-    <div class="login d-flex justify-content-around align-items-center">
+    <div class="login d-flex justify-content-around align-items-center gap-4">
 
       <!-- globe -->
       <div>
         <a href="http://127.0.0.1:8000/register">
           <i class="fa-solid fa-user-plus"></i>
+          <div><span>Register</span></div>
         </a>
       </div>
 
@@ -43,6 +44,7 @@ export default {
       <div class="radius">
         <a href="http://127.0.0.1:8000/login">
           <i class="fa-solid fa-user"> </i>
+          <div><span>Login</span></div>
         </a>
       </div>
     </div>
@@ -57,7 +59,8 @@ export default {
 .logo,
 .type,
 .login {
-  width: 33%;
+  /* width: 33%; */
+  border: 1px solid black;
 }
 
 a {
@@ -66,7 +69,7 @@ a {
 }
 
 a > i {
-  font-size: 20px;
+  font-size: 28px;
 }
 a:hover{
   color: green;
@@ -99,7 +102,19 @@ a:hover{
 
 /* Login padding */
 .login {
-  padding-left: 100px;
-  padding-right: 100px;
+  /* padding-left: 100px;
+  padding-right: 100px; */
 }
+
+
+
+/* MEDIA Q TABLET */
+@media (min-width: 768px) and (max-width: 1048px) {
+  span {
+    display: none;
+  }
+}
+
+/* MEDIA Q SMARTPHONE */
+@media (min-width: 767px) {}
 </style>
