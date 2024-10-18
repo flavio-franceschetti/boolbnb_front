@@ -8,7 +8,6 @@ export default {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <div class="search-bar">
     <div class="search-item">
-        <!-- <label for="destination">Dove</label> -->
         <input type="text" id="destination" placeholder="Cerca destinazioni">
         <div>
             <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
