@@ -77,28 +77,33 @@ a {
 }
 
 .logo {
+  // Css per il logo
   box-sizing: border-box;
   display: flex;
+
   div {
+    // Allineamento
     display: flex;
     align-items: center;
   }
 
   img {
+    // IMG del logo
     width: 80px;
   }
 
   span {
-  font-size: 40px;
-  font-weight: lighter;
-  padding-bottom: 5px;
-}
+    // Titolo dell'App
+    font-size: 40px;
+    font-weight: lighter;
+    padding-bottom: 5px;
+  }
 }
 
 .radius {
+  // Bordi arrotondati per Login Button
   border-radius: 25px;
 }
-
 
 .btn {
   width: 3.5rem;
