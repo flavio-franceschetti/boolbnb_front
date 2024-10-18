@@ -1,18 +1,19 @@
 <script>
+import card from "./main/card/Card.vue";
 import Searchbar from "./Searchbar.vue";
 
 export default {
+  name: 'Navbar',
   components: {
     Searchbar,
+    card
   },
 };
 </script>
 
 <template>
   <!-- Container Up -->
-  <div
-    class="container-fluid text-center d-flex justify-content-between align-items-center p-1"
-  >
+  <div class="container-fluid text-center d-flex justify-content-between align-items-center p-1 mt-3 mb-5">
     <!-- Logo -->
     <div class="logo d-flex align-items-center justify-content-around">
       <div>
@@ -24,39 +25,38 @@ export default {
     </div>
 
     <!-- Searcbar -->
-    <div class="type d-flex flex-row justify-content-around">
-      <div class="d-flex flex-row p-2 gap-3">
-        <div class="p-2 radius">Soggiorni</div>
-        <div class="p-2 radius">Esperienze</div>
-      </div>
+    <div>
+      <Searchbar></Searchbar>
     </div>
 
     <!-- Login -->
     <div class="login d-flex justify-content-around align-items-center">
       <!-- text -->
-      <span class="">Affitta con Boolbnb</span>
+      <a class="" href="">Affitta con Boolbnb</a>
 
       <!-- globe -->
       <div>
-        <i class="fa-solid fa-globe"></i>
+        <a href="http://127.0.0.1:8000/register">
+          <i class="fa-solid fa-user-plus"></i>
+        </a>
       </div>
 
       <!-- button login -->
       <div class="radius">
-        <a href="http://127.0.0.1:8000/register">
-          <i class="fa-solid fa-user-plus"></i
-        ></a>
-        
-        <a href="http://127.0.0.1:8000/login"
-          ><i class="fa-solid fa-user"> </i>
+        <a href="http://127.0.0.1:8000/login">
+          <i class="fa-solid fa-user"> </i>
         </a>
       </div>
     </div>
   </div>
   <!-- Container Down -->
   <div class="container-fluid d-flex justify-content-around">
-    <!-- Searchbar -->
-    <Searchbar></Searchbar>
+  </div>
+  <div class="container d-flex">
+    <card></card>
+    <card></card>
+    <card></card>
+    <card></card>
   </div>
 </template>
 
@@ -70,18 +70,38 @@ export default {
   width: 33%;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a > i {
+  font-size: 20px;
+}
+
 /* Gestione delle voci di Type */
 .radius {
   border-radius: 25px;
 }
 
-/* Dimensioni del Logo */
-.logo img {
-  width: 10%;
+.logo {
+  box-sizing: border-box;
 }
 
-.logo {
-  padding-right: 10%;
+.logo div {
+  display: flex;
+  align-items: center;
+}
+
+/* Dimensioni del Logo */
+.logo img {
+  width: 80px;
+}
+
+.logo span {
+  font-size: 40px;
+  font-weight: lighter;
+  padding-bottom: 5px;
 }
 
 /* Login padding */

@@ -1,59 +1,36 @@
 <script>
-import rating from '../components/main/card/rating.vue';
+// import rating from '../components/main/card/rating.vue';
 
 export default {
-  name: 'card',
+  name: 'Card',
   components: {
-    rating
+    // rating
   },
   data() {
     return {
-      currentImageIndex: 0,
+      imageIndex: 0,
       images: [
         'https://via.placeholder.com/300x200.png?text=Image+1',
         'https://via.placeholder.com/300x200.png?text=Image+2',
         'https://via.placeholder.com/300x200.png?text=Image+3'
       ],
       rating: 0,
-      transitioning: false,
     };
   },
   mounted() {
-    // valore inizialke
-    document.documentElement.style.setProperty('--currentImageIndex', 0);
-
-    setTimeout(() => {
-      this.rating = 0;
-    }, 1000);
+    
   },
   methods: {
     nextImage() {
-      if (!this.transitioning) {
-        this.transitioning = true;
-        // aggiorna currentImageIndex e gestione della transizione
-        this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length; // cicla a sinistra
-        document.documentElement.style.setProperty('--currentImageIndex', this.currentImageIndex);
-
-        setTimeout(() => {
-          this.transitioning = false;
-        }, 500); // durata dell'animazione
-      }
+        this.imageIndex = (this.imageIndex + 1) % this.images.length;
+        
     },
 
     prevImage() {
-      if (!this.transitioning) {
-        this.transitioning = true;
-        // aggiorna currentImageIndex e gestione della transizione
-        this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length; // cicla a destra
-        document.documentElement.style.setProperty('--currentImageIndex', this.currentImageIndex);
-        
-        setTimeout(() => {
-          this.transitioning = false;
-        }, 500); // durata dell'animazione
-      }
+        this.imageIndex = (this.imageIndex - 1 + this.images.length) % this.images.length;
     }
   },
-};
+}
 </script>
 
 <template>
@@ -67,6 +44,7 @@ export default {
           :key="index"
           :src="image"
           class="carousel-image"
+          v-show="index === imageIndex"
         />
       </div>
       <button @click="nextImage" class="arrow next"><i class="fa-solid fa-arrow-right"></i></button>
@@ -74,7 +52,7 @@ export default {
     <div class="card-info">
       <h3></h3>
       <p><strong>Dove:</strong> Lago di Como</p>
-      <rating :rating="rating"/>
+      <!-- <rating :rating="rating"/> -->
       <a href="">Invia un messaggio</a>
     </div>
   </div>
@@ -97,11 +75,6 @@ export default {
 .carousel-images {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  transform: translateX(calc(-100% * var(--currentImageIndex)));
-}
-
-.carousel-image {
-  flex-shrink: 0;
 }
 
 .arrow {
@@ -117,6 +90,10 @@ export default {
   z-index: 1;
   border-radius: 50%;
 }
+
+.arrow:hover {
+    background-color: rgba(144, 143, 143, 0.9);
+   }
 
 .arrow.prev {
   left: 10px;
