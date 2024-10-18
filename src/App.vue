@@ -2,7 +2,7 @@
 // App principale di Vue
 
 // Imports
-import Navbar from "./components/Navbar.vue";
+import Navbar from './components/Navbar.vue';
 
 export default{
   components:{
@@ -15,7 +15,7 @@ export default{
 <template>
   
   <!-- Navbar -->
-  <navbar></navbar>
+  <Navbar></Navbar>
  
 </template>
 
