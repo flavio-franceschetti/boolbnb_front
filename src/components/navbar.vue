@@ -35,7 +35,7 @@ export default {
     <div class="login d-flex justify-content-around align-items-center gap-4">
       <div class="dropdown">
         <button
-          class="btn btn-success dropdown-toggle"
+          class="btn green btn-success dropdown-toggle"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -45,7 +45,6 @@ export default {
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="http://127.0.0.1:8000/register">Register</a></li>
           <li><a class="dropdown-item" href="http://127.0.0.1:8000/login">Login</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
         </ul>
       </div>
 
@@ -56,15 +55,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-/* Suddivisione Navbar */
-
-/* Dimensione container per Upper Menu */
-.logo,
-.type,
-.login {
-  /* width: 33%; */
-  border: 1px solid black;
-}
 
 a {
   text-decoration: none;
@@ -76,6 +66,10 @@ a > i {
 }
 a:hover {
   color: green;
+}
+
+.type{
+  flex-grow: 1;
 }
 
 /* Gestione delle voci di Type */

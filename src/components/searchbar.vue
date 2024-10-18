@@ -32,7 +32,8 @@ export default {
     align-items: center;
     border: 1px solid --white-color;
     border-radius: 50px;
-    width: 40rem;
+    width: 90%;
+    margin: 0 auto;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     font-weight: 6px;
@@ -86,13 +87,6 @@ export default {
 
 .search-btn:hover {
     background-color: #2c9444;
-}
-
-
-@media (min-width: 768px) and (max-width: 1048px) {
-    .search-bar{
-        width: 100%;
-    }
 }
 
 </style>
