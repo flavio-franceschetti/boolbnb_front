@@ -14,15 +14,15 @@ export default {
 <template>
   <!-- Container Up -->
   <div
-    class="container-fluid text-center d-flex justify-content-between align-items-center p-1 mt-3 mb-5"
+    class="container-lg text-center d-flex justify-content-between align-items-center  mt-3 mb-5"
   >
     <!-- Logo -->
-    <div class="logo align-items-center justify-content-around">
+    <div class="logo d-none d-md-block align-items-center justify-content-around">
       <div>
         <!-- logo -->
         <img src="../../public/img/logo_bnb.png" alt="" />
         <!-- titolo -->
-        <span>Boolbnb</span>
+        <span class="d-none d-lg-inline">Boolbnb</span>
       </div>
     </div>
 
@@ -98,16 +98,9 @@ a:hover {
   padding-bottom: 5px;
 }
 
-@media (min-width: 768px) and (max-width: 1048px) {
-  span {
-    display: none;
-  }
+.btn {
+  width: 3.5rem;
+  border-radius: 2em;
 }
 
-/* MEDIA Q SMARTPHONE */
-@media (max-width: 767px) {
-  .logo {
-    display: none;
-  }
-}
 </style>

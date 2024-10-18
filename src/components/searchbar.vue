@@ -8,7 +8,7 @@ export default {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <div class="search-bar">
     <div class="search-item">
-        <label for="destination">Dove</label>
+        <!-- <label for="destination">Dove</label> -->
         <input type="text" id="destination" placeholder="Cerca destinazioni">
         <div>
             <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -33,6 +33,7 @@ export default {
     border: 1px solid --white-color;
     border-radius: 50px;
     width: 90%;
+    height: 3.5rem;
     margin: 0 auto;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -41,11 +42,11 @@ export default {
 
 .search-item {
     width: 100%;
+    height: 100%;
     position: relative;
     padding: 10px 15px;
     display: flex;
-    flex-direction: column;
-    text-align: left;
+    align-items: center;
 }
 
 .search-item:hover, .search-item-last:hover {
@@ -58,18 +59,13 @@ export default {
     background-color: gainsboro;
 }
 
-.search-item label {
-    padding: 0 5px;
-    font-size: 12px;
-    color: rgb(85, 85, 85);
-}
-
 .search-item input {
     border: none;
     outline: none;
     padding: 0 5px;
     font-size: 14px;
-    width: 100%; 
+    width: 100%;
+    padding-right: 50px;
 }
 
 .search-btn {
