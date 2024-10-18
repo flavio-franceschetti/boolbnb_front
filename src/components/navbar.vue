@@ -3,19 +3,21 @@ import Card from "./main/card/Card.vue";
 import Searchbar from "./Searchbar.vue";
 
 export default {
-  name: 'Navbar',
+  name: "Navbar",
   components: {
     Searchbar,
-    Card
+    Card,
   },
 };
 </script>
 
 <template>
   <!-- Container Up -->
-  <div class="container-fluid text-center d-flex justify-content-between align-items-center p-1 mt-3 mb-5">
+  <div
+    class="container-fluid text-center d-flex justify-content-between align-items-center p-1 mt-3 mb-5"
+  >
     <!-- Logo -->
-    <div class="logo d-flex align-items-center justify-content-around">
+    <div class="logo align-items-center justify-content-around">
       <div>
         <!-- logo -->
         <img src="../../public/img/logo_bnb.png" alt="" />
@@ -31,28 +33,29 @@ export default {
 
     <!-- Login -->
     <div class="login d-flex justify-content-around align-items-center gap-4">
+      <div class="dropdown">
+        <button
+          class="btn btn-success dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fa-solid fa-user"></i>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="http://127.0.0.1:8000/register">Register</a></li>
+          <li><a class="dropdown-item" href="http://127.0.0.1:8000/login">Login</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+      </div>
 
       <!-- globe -->
-      <div>
-        <a href="http://127.0.0.1:8000/register">
-          <i class="fa-solid fa-user-plus"></i>
-          <div><span>Register</span></div>
-        </a>
-      </div>
 
-      <!-- button login -->
-      <div class="radius">
-        <a href="http://127.0.0.1:8000/login">
-          <i class="fa-solid fa-user"> </i>
-          <div><span>Login</span></div>
-        </a>
-      </div>
     </div>
   </div>
-
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 /* Suddivisione Navbar */
 
 /* Dimensione container per Upper Menu */
@@ -71,7 +74,7 @@ a {
 a > i {
   font-size: 28px;
 }
-a:hover{
+a:hover {
   color: green;
 }
 
@@ -82,6 +85,7 @@ a:hover{
 
 .logo {
   box-sizing: border-box;
+  display: flex;
 }
 
 .logo div {
@@ -100,15 +104,6 @@ a:hover{
   padding-bottom: 5px;
 }
 
-/* Login padding */
-.login {
-  /* padding-left: 100px;
-  padding-right: 100px; */
-}
-
-
-
-/* MEDIA Q TABLET */
 @media (min-width: 768px) and (max-width: 1048px) {
   span {
     display: none;
@@ -116,5 +111,9 @@ a:hover{
 }
 
 /* MEDIA Q SMARTPHONE */
-@media (min-width: 767px) {}
+@media (max-width: 767px) {
+  .logo {
+    display: none;
+  }
+}
 </style>
