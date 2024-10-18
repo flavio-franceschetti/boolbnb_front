@@ -88,4 +88,11 @@ export default {
     background-color: #2c9444;
 }
 
+
+@media (min-width: 768px) and (max-width: 1048px) {
+    .search-bar{
+        width: 100%;
+    }
+}
+
 </style>
