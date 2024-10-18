@@ -10,15 +10,12 @@ export default {
     return {
       imageIndex: 0,
       images: [
-        'https://via.placeholder.com/300x200.png?text=Image+1',
-        'https://via.placeholder.com/300x200.png?text=Image+2',
-        'https://via.placeholder.com/300x200.png?text=Image+3'
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgrA66Je1VOoed7Lcw95T3vIRSJceEuwTsxw&s',
+        'https://a0.muscache.com/im/pictures/81dca5d6-5a86-49bc-8eca-4a8610a07d27.jpg',
+        'https://www.toptrade.it/files/2023/05/airbnb-3399753_640.jpg'
       ],
       rating: 0,
     };
-  },
-  mounted() {
-    
   },
   methods: {
     nextImage() {
