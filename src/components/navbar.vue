@@ -1,6 +1,6 @@
 <script>
 import Card from "./main/card/Card.vue";
-import Searchbar from "../components/searchbar.vue";
+import Searchbar from "./Searchbar.vue";
 
 export default {
   name: 'Navbar',
@@ -31,8 +31,6 @@ export default {
 
     <!-- Login -->
     <div class="login d-flex justify-content-around align-items-center">
-      <!-- text -->
-      <a class="" href="">Affitta con Boolbnb</a>
 
       <!-- globe -->
       <div>
@@ -49,15 +47,7 @@ export default {
       </div>
     </div>
   </div>
-  <!-- Container Down -->
-  <div class="container-fluid d-flex justify-content-around">
-  </div>
-  <div class="container d-flex">
-    <card></card>
-    <card></card>
-    <card></card>
-    <card></card>
-  </div>
+
 </template>
 
 <style scoped>
@@ -72,11 +62,14 @@ export default {
 
 a {
   text-decoration: none;
-  color: black;
+  color: #28a745;
 }
 
 a > i {
   font-size: 20px;
+}
+a:hover{
+  color: green;
 }
 
 /* Gestione delle voci di Type */
