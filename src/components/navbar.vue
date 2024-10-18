@@ -1,12 +1,12 @@
 <script>
-import card from "./main/card/Card.vue";
-import Searchbar from "./Searchbar.vue";
+import Card from "./main/card/Card.vue";
+import Searchbar from "../components/searchbar.vue";
 
 export default {
   name: 'Navbar',
   components: {
     Searchbar,
-    card
+    Card
   },
 };
 </script>
