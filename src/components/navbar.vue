@@ -95,6 +95,10 @@ a {
 }
 }
 
+.radius {
+  border-radius: 25px;
+}
+
 
 .btn {
   width: 3.5rem;
