@@ -1,12 +1,15 @@
 <script>
+
 // App principale di Vue
 
 // Imports
-import Navbar from './components/Navbar.vue';
+import Navbar from './components/navbar.vue';
+import Home from './components/main/Home.vue';
 
 export default{
   components:{
-    Navbar
+    Navbar,
+    Home
   }
 }
 
@@ -16,7 +19,8 @@ export default{
   
   <!-- Navbar -->
   <Navbar></Navbar>
- 
+  
+  <Home></Home>
 </template>
 
 <style scoped>
