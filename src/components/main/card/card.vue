@@ -62,9 +62,9 @@ export default {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .card-container {
-  width: 300px;
+  width: 250px;
   border: 1px solid white;
   border-radius: 8px;
   overflow: hidden;
@@ -79,8 +79,8 @@ export default {
   display: flex;
   transition: transform 0.5s ease-in-out;
   img{
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    height: 250px;
     object-fit: contain;
   }
 }
@@ -97,7 +97,7 @@ export default {
   padding: 2.5px 10px;
   z-index: 1;
   border-radius: 50%;
-  :hover {
+  &:hover {
     background-color: rgba(144, 143, 143, 0.9);
   }
 
