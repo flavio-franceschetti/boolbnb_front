@@ -67,7 +67,7 @@ export default {
       <p><strong>{{ apartment.title }}</strong></p>
       <!-- <rating :rating="rating"/> -->
       <!-- <a href="">Invia un messaggio</a> -->
-      <p>{{ apartment.id }}</p>
+      <!-- <p>{{ apartment.id }}</p> -->
       <p>{{apartment.address}}</p>
     </div>
   </div>
