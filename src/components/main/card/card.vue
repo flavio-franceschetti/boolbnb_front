@@ -13,11 +13,14 @@ export default {
       type: Object,
       required: true,
     },
+
     // apartmentDetail: {
     //   type: Object,
     //   required: true,
     // },
   },
+
+  emits: ['apartment-selected'],
 
   data() {
     return {
@@ -41,9 +44,14 @@ export default {
       this.imageIndex =
         (this.imageIndex - 1 + this.images.length) % this.images.length;
     },
+
+  
+    handleClick() {
+      this.$emit('apartment-selected', this.apartment.id); 
   },
  
-};
+}
+}
 </script>
 
 <template>
@@ -51,7 +59,7 @@ export default {
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
   />
-  <div class="card-container">
+  <div class="card-container " @click="handleClick">
     <div class="carousel">
       <button @click="prevImage" class="arrow prev">
         <i class="fa-solid fa-arrow-left"></i>
