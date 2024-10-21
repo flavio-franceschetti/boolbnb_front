@@ -1,7 +1,6 @@
 <script>
 import Card from "./main/card/Card.vue";
 import Searchbar from "./Searchbar.vue";
-
 export default {
   name: "Navbar",
   components: {
@@ -14,7 +13,7 @@ export default {
 <template>
   <!-- Container Up -->
   <div
-    class="container-lg text-center d-flex justify-content-between align-items-center mt-3 mb-5"
+    class="container-lg text-center d-flex justify-content-between align-items-center p-2 gap-3"
   >
     <!-- Logo -->
     <div
@@ -34,7 +33,7 @@ export default {
     </div>
 
     <!-- Login -->
-    <div class="login d-flex justify-content-around align-items-center gap-4">
+    <div class="login d-flex justify-content-around gap-4">
       <div class="dropdown">
         <button
           class="btn green btn-success dropdown-toggle"
@@ -57,8 +56,6 @@ export default {
           </li>
         </ul>
       </div>
-
-      <!-- globe -->
     </div>
   </div>
 </template>
@@ -72,7 +69,6 @@ a {
 }
 
 .type {
-  // Barra di ricerca
   flex-grow: 1; // Fa si che la barra di ricerca si adatti in proposione al monitor;
 }
 
@@ -89,12 +85,12 @@ a {
 
   img {
     // IMG del logo
-    width: 80px;
+    width: 60px;
   }
 
   span {
     // Titolo dell'App
-    font-size: 40px;
+    font-size: 32px;
     font-weight: lighter;
     padding-bottom: 5px;
   }
