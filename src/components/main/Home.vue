@@ -1,5 +1,5 @@
 <script>
-import Card from "./card/Card.vue";
+import Card from "./card/card.vue";
 import axios from "axios";
 
 export default {
@@ -24,18 +24,24 @@ export default {
         console.error("Errore durante la richiesta API:", error);
       });
 
-    // axios
-    //   .get("http://127.0.0.1:8000/api/apartmentById/1")
-    //   .then((response) => {
-    //     this.apartmentDetail = response.data.apartmentDetail;
-    //   })
-    //   .catch((error) => {
-    //     console.error("Errore durante la richiesta API:", error);
-    //   });
   },
   methods: {
-    details() {
-      // Chiamata API per ottenere i dettagli degli appartamenti
+    getApartmentDetails(apartmentId) {
+      // Chiamata API per ottenere i dettagli dell'appartamento selezionato
+      console.log(apartmentId);
+      
+      axios
+        .get(`http://127.0.0.1:8000/api/apartmentById/${apartmentId}`)
+        .then((response) => {
+          this.apartmentDetail = response.data.apartment; // Assicurati che il percorso sia corretto
+   
+        
+        })
+
+
+        .catch((error) => {
+          console.error("Errore durante la richiesta API:", error);
+        });
     },
   },
 };
@@ -56,7 +62,8 @@ export default {
         v-for="apartment in apartments"
         :key="apartment.id"
       >
-        <Card :apartment="apartment"></Card>
+      <Card :apartment="apartment" @apartment-selected="getApartmentDetails" />
+        <!-- Debug -->
       </div>
     </div>
   </div>
