@@ -7,12 +7,14 @@ export default {
   components: {
     // rating
   },
+
   props: {
     apartment: {
       type: Object,
       required: true,
     },
   },
+
   data() {
     return {
       imageIndex: 0,
