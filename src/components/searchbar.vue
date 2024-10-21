@@ -19,7 +19,7 @@ export default {
   mounted() {
     // SEZIONE DELLA SEARCHBOX
     // recuper la chiave dell'api inserita in config
-    const apiKey = "WZySL6v5EXqKQmi7su8ub06dFdayoFto";
+    const apiKey = "";
     // queste sono le impostazioni della searchBox di tomtom
     let options = {
       searchOptions: {
