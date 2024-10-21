@@ -1,6 +1,6 @@
 <script>
 import { RouterLink, RouterView } from "vue-router";
-import Card from "./card/card.vue";
+import Card from "./card/Card.vue";
 import { store } from "../../store";
 import axios from "axios";
 
@@ -44,8 +44,6 @@ export default {
         :key="apartment.id"
       >
         <Card :apartment="apartment" />
-
-        <!-- Debug -->
       </div>
     </div>
   </div>

@@ -6,14 +6,7 @@ export default {
       type: Object,
       required: true,
     },
-
-    // apartmentDetail: {
-    //   type: Object,
-    //   required: true,
-    // },
   },
-
-  emits: ["apartment-selected"],
 
   data() {
     return {
@@ -24,7 +17,6 @@ export default {
         "https://www.scopriremilano.com/f/italia/milan/guia/lago-como-m.jpg",
       ],
       apartments: [],
-      // apartmentDetail: [],
       rating: 0,
     };
   },
@@ -36,10 +28,6 @@ export default {
     prevImage() {
       this.imageIndex =
         (this.imageIndex - 1 + this.images.length) % this.images.length;
-    },
-
-    handleClick() {
-      this.$emit("apartment-selected", this.apartment.id);
     },
   },
 };
@@ -73,8 +61,7 @@ export default {
       <p>
         <strong>{{ apartment.title }}</strong>
       </p>
-      <!-- <rating :rating="rating"/> -->
-      <!-- <a href="">Invia un messaggio</a> -->
+
       <p>{{ apartment.id }}</p>
       <p><strong>Letti:</strong> {{ apartment.beds }}</p>
       ciao
@@ -83,9 +70,6 @@ export default {
         :to="{ name: 'apartmentDetails', params: { id: apartment.id } }"
         >Dettaglio</router-link
       >
-
-      <!-- Debug -->
-      <!-- <p>Dettaglio : {{ apartmentDetail.id }}</p> -->
     </div>
   </div>
 </template>
