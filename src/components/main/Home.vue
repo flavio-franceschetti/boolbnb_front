@@ -1,40 +1,50 @@
 <script>
+import { RouterLink, RouterView } from "vue-router";
 import Card from "./card/card.vue";
+import { store } from "../../store";
 import axios from "axios";
+import ApartmentDetails from "./ApartmentDetails.vue";
 
 export default {
   name: "Home",
   components: {
     Card,
+    ApartmentDetails,
   },
   data() {
     return {
       apartments: [],
-      apartmentDetail: [],
+      apartmentDetails: null,
     };
   },
   mounted() {
     // Chiamata API per ottenere i dati degli appartamenti
     axios
-      .get("http://127.0.0.1:8000/api/apartments")
+      .get(store.apiUrl + "apartments")
       .then((response) => {
         this.apartments = response.data.apartments;
       })
       .catch((error) => {
         console.error("Errore durante la richiesta API:", error);
       });
+      
+      console.log('dettagli', apartmentDetails);
+      
+      
 
   },
   methods: {
     getApartmentDetails(apartmentId) {
       // Chiamata API per ottenere i dettagli dell'appartamento selezionato
       console.log(apartmentId);
+      this.$router.push("/about");
       
       axios
-        .get(`http://127.0.0.1:8000/api/apartmentById/${apartmentId}`)
+        .get(store.apiUrl + "apartmentById/" + apartmentId)
         .then((response) => {
-          this.apartmentDetail = response.data.apartment; // Assicurati che il percorso sia corretto
-   
+          this.apartmentDetails = response.data.apartment; // Assicurati che il percorso sia corretto
+          console.log('Appartamento axios', this.apartmentDetails);
+          
         
         })
 
@@ -61,11 +71,14 @@ export default {
         class="col-lg-3 col-md-6 col-sm-12 col-mb-4 d-flex justify-content-around mb-5 mt-3"
         v-for="apartment in apartments"
         :key="apartment.id"
-      >
+        >
       <Card :apartment="apartment" @apartment-selected="getApartmentDetails" />
+    
         <!-- Debug -->
       </div>
     </div>
+    <!-- Dettagli dell'appartamento -->
+    <ApartmentDetails :apartment="apartmentDetails" />
   </div>
 </template>
 
