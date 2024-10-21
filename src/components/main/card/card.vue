@@ -1,4 +1,5 @@
 <script>
+
 // import rating from '../components/main/card/rating.vue';
 
 export default {
@@ -6,7 +7,14 @@ export default {
   components: {
     // rating
   },
-  // immagini
+
+  props: {
+    apartment: {
+      type: Object,
+      required: true,
+    },
+  },
+
   data() {
     return {
       imageIndex: 0,
@@ -15,6 +23,7 @@ export default {
         "https://www.lombardia.info/wp-content/uploads/sites/112/menaggio-lago-como.jpg",
         "https://www.scopriremilano.com/f/italia/milan/guia/lago-como-m.jpg",
       ],
+      apartments: [],
       rating: 0,
     };
   },
@@ -28,6 +37,7 @@ export default {
         (this.imageIndex - 1 + this.images.length) % this.images.length;
     },
   },
+ 
 };
 </script>
 
@@ -56,16 +66,18 @@ export default {
     </div>
     <div class="card-info">
       <h3></h3>
-      <p><strong>Dove:</strong> Lago di Como</p>
+      <p><strong>{{ apartment.title }}</strong></p>
       <!-- <rating :rating="rating"/> -->
-      <a href="">Invia un messaggio</a>
+      <!-- <a href="">Invia un messaggio</a> -->
+      <!-- <p>{{ apartment.id }}</p> -->
+      <p>{{apartment.address}}</p>
     </div>
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .card-container {
-  width: 300px;
+  width: 250px;
   border: 1px solid white;
   border-radius: 8px;
   overflow: hidden;
@@ -79,9 +91,9 @@ export default {
 .carousel-images {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  img{
-    width: 300px;
-    height: 300px;
+  img {
+    width: 100%;
+    height: 250px;
     object-fit: contain;
   }
 }
@@ -98,8 +110,10 @@ export default {
   padding: 2.5px 10px;
   z-index: 1;
   border-radius: 50%;
-  :hover {
+  opacity: 0;
+  &:hover {
     background-color: rgba(144, 143, 143, 0.9);
+    opacity: 1;
   }
 
   .card-info {
@@ -121,8 +135,8 @@ export default {
 }
 
 .arrow.next {
-    right: 10px;
-  }
+  right: 10px;
+}
 
 .arrow .arrow.prev {
   left: 10px;
