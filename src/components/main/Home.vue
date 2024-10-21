@@ -57,6 +57,7 @@ export default {
         :key="apartment.id"
       >
         <Card :apartment="apartment"></Card>
+        <!-- Debug -->
       </div>
     </div>
   </div>
