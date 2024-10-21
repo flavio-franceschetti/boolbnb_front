@@ -11,6 +11,7 @@ import "./style.scss";
 import App from "./App.vue";
 import ApartmentDetails from "./components/main/ApartmentDetails.vue";
 import Home from "./components/main/Home.vue";
+import SearchDetails from "./components/main/SearchDetails.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -24,6 +25,11 @@ const router = createRouter({
       path: "/dettaglio-appartamento/:id",
       name: "apartmentDetails",
       component: ApartmentDetails,
+    },
+    {
+      path: "/ricerca-avanzata/:address",
+      name: "searchDetails",
+      component: SearchDetails,
     },
   ],
 });
