@@ -6,6 +6,7 @@ export default {
   components: {
     // rating
   },
+  // immagini
   data() {
     return {
       imageIndex: 0,
