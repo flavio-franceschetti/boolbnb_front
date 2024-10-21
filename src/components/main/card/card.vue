@@ -16,23 +16,18 @@ export default {
         "https://www.lombardia.info/wp-content/uploads/sites/112/menaggio-lago-como.jpg",
         "https://www.scopriremilano.com/f/italia/milan/guia/lago-como-m.jpg",
       ],
-      apartments: [],
-      rating: 0,
-      // intervallo 
       intervalId: null,
     };
   },
 
   mounted() {
-    // start automatico carousell
-    this.intervalId = setInterval(this.nextImage, 3000);
+    this.intervalId = setInterval(this.nextImage, 8000);
   },
 
   beforeDestroy() {
-    // pulisce l intervallo con clearinterval
-
-    clearInterval(this.intervalId)
+    clearInterval(this.intervalId);
   },
+  
   methods: {
     nextImage() {
       this.imageIndex = (this.imageIndex + 1) % this.images.length;
@@ -52,18 +47,16 @@ export default {
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
   />
   <div class="card-container" @click="handleClick">
-    <!-- Carousel delle immagini -->
     <div class="carousel">
       <button @click="prevImage" class="arrow prev">
         <i class="fa-solid fa-arrow-left"></i>
       </button>
-      <div class="carousel-images">
+      <div class="carousel-images" :style="{ transform: 'translateX(-' + (imageIndex * 100) + '%)' }">
         <img
           v-for="(image, index) in images"
           :key="index"
           :src="image"
           class="carousel-image"
-          v-show="index === imageIndex"
         />
       </div>
       <button @click="nextImage" class="arrow next">
@@ -71,7 +64,6 @@ export default {
       </button>
     </div>
 
-    <!-- Informazioni dell'appartamento -->
     <div class="card-info">
       <h3>{{ apartment.title }}</h3>
       <p><strong>Letti:</strong> {{ apartment.beds }}</p>
@@ -84,8 +76,8 @@ export default {
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
 
+<style lang="scss" scoped>
 // generali 
 
 .card-container {
@@ -103,7 +95,8 @@ export default {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   }
 }
-//  carosello 
+
+// carosello 
 
 .carousel {
   position: relative;
@@ -123,8 +116,6 @@ export default {
     }
   }
 
-
-  // bottoni next e prev
   .arrow {
     position: absolute;
     top: 50%;
