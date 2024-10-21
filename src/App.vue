@@ -2,23 +2,25 @@
 // App principale di Vue
 
 // Imports
-import navbar from "./components/navbar.vue";
+import Navbar from "./components/Navbar.vue";
+import Home from "./components/main/Home.vue";
 
-export default{
-  components:{
-    navbar
-  }
-}
-
+export default {
+  components: {
+    Navbar,
+    Home,
+  },
+};
 </script>
 
 <template>
-  
   <!-- Navbar -->
-  <navbar></navbar>
- 
+  <Navbar></Navbar>
+
+  <!-- Home -->
+
+  <router-view></router-view>
+
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

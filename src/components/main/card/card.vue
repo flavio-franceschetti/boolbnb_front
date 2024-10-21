@@ -1,89 +1,82 @@
 <script>
-import rating from '../components/main/card/rating.vue';
-
 export default {
-  name: 'card',
-  components: {
-    rating
+  name: "Card",
+  props: {
+    apartment: {
+      type: Object,
+      required: true,
+    },
   },
+
   data() {
     return {
-      currentImageIndex: 0,
+      imageIndex: 0,
       images: [
-        'https://via.placeholder.com/300x200.png?text=Image+1',
-        'https://via.placeholder.com/300x200.png?text=Image+2',
-        'https://via.placeholder.com/300x200.png?text=Image+3'
+        "https://www.lombardia.info/wp-content/uploads/sites/112/lago-como-villa.jpg",
+        "https://www.lombardia.info/wp-content/uploads/sites/112/menaggio-lago-como.jpg",
+        "https://www.scopriremilano.com/f/italia/milan/guia/lago-como-m.jpg",
       ],
+      apartments: [],
       rating: 0,
-      transitioning: false,
     };
-  },
-  mounted() {
-    // valore inizialke
-    document.documentElement.style.setProperty('--currentImageIndex', 0);
-
-    setTimeout(() => {
-      this.rating = 0;
-    }, 1000);
   },
   methods: {
     nextImage() {
-      if (!this.transitioning) {
-        this.transitioning = true;
-        // aggiorna currentImageIndex e gestione della transizione
-        this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length; // cicla a sinistra
-        document.documentElement.style.setProperty('--currentImageIndex', this.currentImageIndex);
-
-        setTimeout(() => {
-          this.transitioning = false;
-        }, 500); // durata dell'animazione
-      }
+      this.imageIndex = (this.imageIndex + 1) % this.images.length;
     },
 
     prevImage() {
-      if (!this.transitioning) {
-        this.transitioning = true;
-        // aggiorna currentImageIndex e gestione della transizione
-        this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length; // cicla a destra
-        document.documentElement.style.setProperty('--currentImageIndex', this.currentImageIndex);
-        
-        setTimeout(() => {
-          this.transitioning = false;
-        }, 500); // durata dell'animazione
-      }
-    }
+      this.imageIndex =
+        (this.imageIndex - 1 + this.images.length) % this.images.length;
+    },
   },
 };
 </script>
 
 <template>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <div class="card-container">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <div class="card-container" @click="handleClick">
     <div class="carousel">
-      <button @click="prevImage" class="arrow prev"><i class="fa-solid fa-arrow-left"></i></button>
+      <button @click="prevImage" class="arrow prev">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
       <div class="carousel-images">
         <img
-          v-for="(image, index) in images" 
+          v-for="(image, index) in images"
           :key="index"
           :src="image"
           class="carousel-image"
+          v-show="index === imageIndex"
         />
       </div>
-      <button @click="nextImage" class="arrow next"><i class="fa-solid fa-arrow-right"></i></button>
+      <button @click="nextImage" class="arrow next">
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
     </div>
     <div class="card-info">
       <h3></h3>
-      <p><strong>Dove:</strong> Lago di Como</p>
-      <rating :rating="rating"/>
-      <a href="">Invia un messaggio</a>
+      <p>
+        <strong>{{ apartment.title }}</strong>
+      </p>
+
+      <p>{{ apartment.id }}</p>
+      <p><strong>Letti:</strong> {{ apartment.beds }}</p>
+      ciao
+      <p>{{ apartment.address }}</p>
+      <router-link
+        :to="{ name: 'apartmentDetails', params: { id: apartment.id } }"
+        >Dettaglio</router-link
+      >
     </div>
   </div>
 </template>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
 .card-container {
-  width: 300px;
+  width: 250px;
   border: 1px solid white;
   border-radius: 8px;
   overflow: hidden;
@@ -97,11 +90,11 @@ export default {
 .carousel-images {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  transform: translateX(calc(-100% * var(--currentImageIndex)));
-}
-
-.carousel-image {
-  flex-shrink: 0;
+  img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+  }
 }
 
 .arrow {
@@ -116,33 +109,35 @@ export default {
   padding: 2.5px 10px;
   z-index: 1;
   border-radius: 50%;
-}
+  opacity: 0;
+  &:hover {
+    background-color: rgba(144, 143, 143, 0.9);
+    opacity: 1;
+  }
 
-.arrow.prev {
-  left: 10px;
+  .card-info {
+    padding: 16px;
+    background-color: white;
+  }
+  .card-info h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+  .card-info p {
+    margin: 4px 0;
+    font-size: 14px;
+  }
+  .rating {
+    font-size: 16px;
+    color: black;
+  }
 }
 
 .arrow.next {
   right: 10px;
 }
 
-.card-info {
-  padding: 16px;
-  background-color: white;
-}
-
-.card-info h3 {
-  margin: 0;
-  font-size: 18px;
-}
-
-.card-info p {
-  margin: 4px 0;
-  font-size: 14px;
-}
-
-.rating {
-  font-size: 16px;
-  color: black
+.arrow .arrow.prev {
+  left: 10px;
 }
 </style>

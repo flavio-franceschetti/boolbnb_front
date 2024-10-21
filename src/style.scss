@@ -1,7 +1,21 @@
 /* Definizione dei colori di root */
-:root {
-  --green-color: #28a745;   /* Verde */
-  --white-color: #ffffff;   /* Bianco */
-  --black-color: #000000;   /* Nero */
+
+$green-color: #28a745; 
+$white-color: #ffffff; 
+$black-color: #000000;
+
+// General
+// * {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+// }
+
+
+// Definizione di background colo per classi Bootstrap
+.green {
+  background-color: $green-color;
 }
+
+
 

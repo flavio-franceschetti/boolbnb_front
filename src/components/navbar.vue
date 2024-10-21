@@ -1,9 +1,12 @@
 <script>
+import Card from "./main/card/Card.vue";
 import Searchbar from "./Searchbar.vue";
 
 export default {
+  name: "Navbar",
   components: {
     Searchbar,
+    Card,
   },
 };
 </script>
@@ -11,82 +14,99 @@ export default {
 <template>
   <!-- Container Up -->
   <div
-    class="container-fluid text-center d-flex justify-content-between align-items-center p-1"
+    class="container-lg text-center d-flex justify-content-between align-items-center mt-3 mb-5"
   >
     <!-- Logo -->
-    <div class="logo d-flex align-items-center justify-content-around">
+    <div
+      class="logo d-none d-md-block align-items-center justify-content-around"
+    >
       <div>
         <!-- logo -->
-        <img src="../../public/img/logo_bnb.png" alt="" />
+        <img src="../../public/img/logo_bnb.png" alt="logo" />
         <!-- titolo -->
-        <span>Boolbnb</span>
+        <span class="d-none d-lg-inline">Boolbnb</span>
       </div>
     </div>
 
     <!-- Searcbar -->
-    <div class="type d-flex flex-row justify-content-around">
-      <div class="d-flex flex-row p-2 gap-3">
-        <div class="p-2 radius">Soggiorni</div>
-        <div class="p-2 radius">Esperienze</div>
-      </div>
+    <div class="type">
+      <Searchbar></Searchbar>
     </div>
 
     <!-- Login -->
-    <div class="login d-flex justify-content-around align-items-center">
-      <!-- text -->
-      <span class="">Affitta con Boolbnb</span>
+    <div class="login d-flex justify-content-around align-items-center gap-4">
+      <div class="dropdown">
+        <button
+          class="btn green btn-success dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fa-solid fa-user"></i>
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="http://127.0.0.1:8000/register"
+              >Register</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="http://127.0.0.1:8000/login"
+              >Login</a
+            >
+          </li>
+        </ul>
+      </div>
 
       <!-- globe -->
-      <div>
-        <i class="fa-solid fa-globe"></i>
-      </div>
-
-      <!-- button login -->
-      <div class="radius">
-        <a href="http://127.0.0.1:8000/register">
-          <i class="fa-solid fa-user-plus"></i
-        ></a>
-        
-        <a href="http://127.0.0.1:8000/login"
-          ><i class="fa-solid fa-user"> </i>
-        </a>
-      </div>
     </div>
-  </div>
-  <!-- Container Down -->
-  <div class="container-fluid d-flex justify-content-around">
-    <!-- Searchbar -->
-    <Searchbar></Searchbar>
   </div>
 </template>
 
-<style scoped>
-/* Suddivisione Navbar */
-
-/* Dimensione container per Upper Menu */
-.logo,
-.type,
-.login {
-  width: 33%;
+<style lang="scss" scoped>
+// Use of Scss
+@use "../style.scss" as *;
+a {
+  text-decoration: none;
+  color: $green-color;
 }
 
-/* Gestione delle voci di Type */
-.radius {
-  border-radius: 25px;
-}
-
-/* Dimensioni del Logo */
-.logo img {
-  width: 10%;
+.type {
+  // Barra di ricerca
+  flex-grow: 1; // Fa si che la barra di ricerca si adatti in proposione al monitor;
 }
 
 .logo {
-  padding-right: 10%;
+  // Css per il logo
+  box-sizing: border-box;
+  display: flex;
+
+  div {
+    // Allineamento
+    display: flex;
+    align-items: center;
+  }
+
+  img {
+    // IMG del logo
+    width: 80px;
+  }
+
+  span {
+    // Titolo dell'App
+    font-size: 40px;
+    font-weight: lighter;
+    padding-bottom: 5px;
+  }
 }
 
-/* Login padding */
-.login {
-  padding-left: 100px;
-  padding-right: 100px;
+.radius {
+  // Bordi arrotondati per Login Button
+  border-radius: 25px;
+}
+
+.btn {
+  width: 3.5rem;
+  border-radius: 2em;
 }
 </style>

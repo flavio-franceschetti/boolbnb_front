@@ -22,9 +22,9 @@
 
 <template>
     <div class="star-rating">
-      <span v-for="(star, index) in fullStars" :key="'full' + index" class="star full">★</span>
+      <span v-for="(star, index) in fullStars" :key="'full' + index" class="star full"><i class="fa-solid fa-star"></i></span>
       <span v-if="hasHalfStar" class="star half">★</span>
-      <span v-for="(star, index) in emptyStars" :key="'empty' + index" class="star empty">★</span>
+      <span v-for="(star, index) in emptyStars" :key="'empty' + index" class="star empty"><i class="fa-regular fa-star"></i></span>
     </div>
 </template>
   
@@ -39,7 +39,7 @@
   }
   
   .star.half::before {
-    content: "★";
+    content: "<i class="fa-solid fa-star-half-stroke"></i>";
     color: yellow;
     position: absolute;
     width: 50%;
