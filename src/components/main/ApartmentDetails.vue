@@ -1,4 +1,5 @@
 <script>
+
 import axios from "axios";
 import { store } from "../../store";
 export default {
@@ -27,12 +28,15 @@ export default {
   mounted() {
     const apartmentId = this.$route.params.id;
     this.getApartmentDetails(apartmentId);
+
   },
 };
 </script>
 
 <template>
+
   <h1>{{ apartment.address }}</h1>
+
 </template>
 
 <style lang="scss" scoped></style>
