@@ -23,12 +23,13 @@ export default {
       .get(store.apiUrl + "apartments")
       .then((response) => {
         this.apartments = response.data.apartments;
+        console.log('dettagli', apartmentDetails);
       })
       .catch((error) => {
         console.error("Errore durante la richiesta API:", error);
       });
       
-      console.log('dettagli', apartmentDetails);
+      // 
       
       
 
