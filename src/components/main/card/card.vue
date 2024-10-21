@@ -12,6 +12,10 @@ export default {
       type: Object,
       required: true,
     },
+    // apartmentDetail: {
+    //   type: Object,
+    //   required: true,
+    // },
   },
   data() {
     return {
@@ -22,6 +26,7 @@ export default {
         "https://www.scopriremilano.com/f/italia/milan/guia/lago-como-m.jpg",
       ],
       apartments: [],
+      // apartmentDetail: [],
       rating: 0,
     };
   },
@@ -71,6 +76,9 @@ export default {
       <p><strong>Letti:</strong> {{ apartment.beds }}</p>
       ciao
       <p>{{apartment.address}}</p>
+
+      <!-- Debug -->
+      <!-- <p>Dettaglio : {{ apartmentDetail.id }}</p> -->
     </div>
   </div>
 </template>
