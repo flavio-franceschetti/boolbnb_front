@@ -1,25 +1,12 @@
 <script>
-
-// import rating from '../components/main/card/rating.vue';
-
 export default {
   name: "Card",
-  components: {
-    // rating
-  },
-
   props: {
     apartment: {
       type: Object,
       required: true,
     },
-    // apartmentDetail: {
-    //   type: Object,
-    //   required: true,
-    // },
   },
-
-  emits: ['apartment-selected'],
 
   data() {
     return {
@@ -30,7 +17,6 @@ export default {
         "https://www.scopriremilano.com/f/italia/milan/guia/lago-como-m.jpg",
       ],
       apartments: [],
-      // apartmentDetail: [],
       rating: 0,
     };
   },
@@ -43,14 +29,8 @@ export default {
       this.imageIndex =
         (this.imageIndex - 1 + this.images.length) % this.images.length;
     },
-
-  
-    handleClick() {
-      this.$emit('apartment-selected', this.apartment.id); 
   },
- 
-}
-}
+};
 </script>
 
 <template>
@@ -58,7 +38,7 @@ export default {
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
   />
-  <div class="card-container " @click="handleClick">
+  <div class="card-container" @click="handleClick">
     <div class="carousel">
       <button @click="prevImage" class="arrow prev">
         <i class="fa-solid fa-arrow-left"></i>
@@ -78,16 +58,18 @@ export default {
     </div>
     <div class="card-info">
       <h3></h3>
-      <p><strong>{{ apartment.title }}</strong></p>
-      <!-- <rating :rating="rating"/> -->
-      <!-- <a href="">Invia un messaggio</a> -->
+      <p>
+        <strong>{{ apartment.title }}</strong>
+      </p>
+
       <p>{{ apartment.id }}</p>
       <p><strong>Letti:</strong> {{ apartment.beds }}</p>
       ciao
-      <p>{{apartment.address}}</p>
-
-      <!-- Debug -->
-      <!-- <p>Dettaglio : {{ apartmentDetail.id }}</p> -->
+      <p>{{ apartment.address }}</p>
+      <router-link
+        :to="{ name: 'apartmentDetails', params: { id: apartment.id } }"
+        >Dettaglio</router-link
+      >
     </div>
   </div>
 </template>
