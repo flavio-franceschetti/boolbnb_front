@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       apartments: [],
-      apartmentDetails: null,
+      apartmentDetails: [],
     };
   },
   mounted() {
@@ -23,12 +23,13 @@ export default {
       .get(store.apiUrl + "apartments")
       .then((response) => {
         this.apartments = response.data.apartments;
+        console.log('dettagli', apartmentDetails);
       })
       .catch((error) => {
         console.error("Errore durante la richiesta API:", error);
       });
       
-      console.log('dettagli', apartmentDetails);
+      // 
       
       
 
@@ -37,7 +38,7 @@ export default {
     getApartmentDetails(apartmentId) {
       // Chiamata API per ottenere i dettagli dell'appartamento selezionato
       console.log(apartmentId);
-      this.$router.push("/about");
+      // this.$router.push("/about");
       
       axios
         .get(store.apiUrl + "apartmentById/" + apartmentId)
@@ -78,7 +79,7 @@ export default {
       </div>
     </div>
     <!-- Dettagli dell'appartamento -->
-    <ApartmentDetails :apartment="apartmentDetails" />
+    <!-- <ApartmentDetails :apartment="apartmentDetails"  @apartment-selected="getApartmentDetails" /> -->
   </div>
 </template>
 

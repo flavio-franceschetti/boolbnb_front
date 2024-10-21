@@ -13,7 +13,6 @@ export default {
       type: Object,
       required: true,
     },
-
     // apartmentDetail: {
     //   type: Object,
     //   required: true,

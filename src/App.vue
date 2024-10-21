@@ -21,7 +21,7 @@ export default{
   <Navbar></Navbar>
 
   <!-- Home -->
-   <router-view/>
+  <router-view></router-view>
 </template>
 
 <style scoped>
