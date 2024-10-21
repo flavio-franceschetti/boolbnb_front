@@ -22,7 +22,7 @@ export default {
     >
       <div>
         <!-- logo -->
-        <img src="../../public/img/logo_bnb.png" alt="logo" />
+        <img src="/img/logo_bnb.png" alt="logo" />
         <!-- titolo -->
         <span class="d-none d-lg-inline">Boolbnb</span>
       </div>
