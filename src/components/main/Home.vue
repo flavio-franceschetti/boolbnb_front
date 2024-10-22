@@ -30,14 +30,11 @@ export default {
 </script>
 
 <template>
-  <!-- Titolo della pagina esposizione -->
-  <h1>I nostri appartamenti</h1>
-
   <!-- Container gestito tramite bootstrap grill per il responsive -->
   <div class="container">
     <div class="row">
       <div
-       class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex justify-content-center"
+        class="col-lg-4 col-md-5 col-7 mb-4 d-flex justify-content-center px-3 mx-4 mx-md-0"
         v-for="apartment in apartments"
         :key="apartment.id"
       >
