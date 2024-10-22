@@ -107,6 +107,7 @@ export default {
   .carousel-images {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    
 
     img {
       width: 100%;
@@ -166,7 +167,7 @@ export default {
     display: inline-block;
     margin-top: 10px;
     padding: 8px 12px;
-    background-color: #007bff;
+    background-color: #28a745;
     color: white;
     border-radius: 5px;
     text-decoration: none;
