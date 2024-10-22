@@ -21,7 +21,6 @@ export default {
       .get(store.apiUrl + "apartments")
       .then((response) => {
         this.apartments = response.data.apartments;
-        console.log('dettagli', apartmentDetails);
       })
       .catch((error) => {
         console.error("Errore durante la richiesta API:", error);
@@ -38,7 +37,7 @@ export default {
   <div class="container">
     <div class="row">
       <div
-        class="col-lg-3 col-md-6 col-sm-12 col-mb-4 d-flex justify-content-around mb-5 mt-3"
+       class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex justify-content-center"
         v-for="apartment in apartments"
         :key="apartment.id"
       >
@@ -52,10 +51,53 @@ export default {
 @use "../../style.scss" as *;
 
 h1 {
-  // Titolo della pagina principale
+
   text-align: center;
-  font-size: 40px;
-  font-weight: lighter;
-  padding-bottom: 5px;
+  font-size: 48px;
+  font-weight: 300;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+// generale
+
+.container {
+  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+// cards
+.apartment-card {
+  
+  width: 100%;
+  max-width: 350px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+   
+    transform: translateY(-10px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.row {
+  
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  // dispositivi mobili
+  h1 {
+    font-size: 36px;
+  }
+
+  .apartment-card {
+    max-width: 100%;
+  }
 }
 </style>

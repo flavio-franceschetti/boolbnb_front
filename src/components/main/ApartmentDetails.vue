@@ -5,6 +5,7 @@ export default {
   name: "ApartmentDetails",
   data() {
     return {
+      imageIndex: 0,
       apartment: {},
     };
   },
@@ -23,6 +24,16 @@ export default {
           console.error("Errore durante la richiesta API:", error);
         });
     },
+
+    nextImage() {
+      this.imageIndex = (this.imageIndex + 1) % this.apartment.images.length;
+    },
+
+    prevImage() {
+      this.imageIndex =
+        (this.imageIndex - 1 + this.apartment.images.length) %
+        this.apartment.images.length;
+    },
   },
   mounted() {
     const apartmentId = this.$route.params.id;
@@ -32,66 +43,136 @@ export default {
 </script>
 
 <template>
-  <!-- <h1>{{ apartment.address }}</h1> -->
   <div class="container">
-    <!-- Titolo -->
-    <div class="row">
-      <div class="col-12 text-center">
-        <h1>{{ apartment.title }}</h1>
-      </div>
+    <h1>Appartamento in {{ apartment.address }}</h1>
+    <div
+      class="contImages"
+      v-for="(image, index) in apartment.images"
+      :key="index"
+    >
+      <button @click="prevImage" class="arrow prev">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <img
+        :key="index"
+        v-show="index === imageIndex"
+        :src="image.img_path"
+        alt="Appartamento"
+        class="img"
+      />
+      <button @click="nextImage" class="arrow next">
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
     </div>
-
-    <!-- Immagini -->
-    <div class="row">
-      <div class="photo-grid">
-        <div class="photo large-photo">
-          <img
-            src="https://www.lombardia.info/wp-content/uploads/sites/112/lago-como-villa.jpg"
-            alt=""
-          />
-          <h3>{{ apartment.address }}</h3>
-          <span>{{ apartment.rooms }} Stanze </span>
-          <span> {{ apartment.beds }} Letti</span>
-        </div>
-        <div class="photo small-photo">
-          <img
-            src="https://www.lombardia.info/wp-content/uploads/sites/112/menaggio-lago-como.jpg"
-            alt=""
-          />
-        </div>
-        <div class="photo small-photo">
-          <img
-            src="https://www.scopriremilano.com/f/italia/milan/guia/lago-como-m.jpg"
-            alt=""
-          />
-        </div>
+    <h3>{{ apartment.title }}</h3>
+    <div class="info">
+      <div class="col">
+        <span
+          >Stanze: <br />
+          <strong>{{ apartment.rooms }}</strong>
+        </span>
+        <span
+          >Letti: <br />
+          <strong>{{ apartment.beds }}</strong>
+        </span>
+        <span
+          >bagni: <br />
+          <strong>{{ apartment.bathrooms }}</strong>
+        </span>
+        <span
+          >Metri Quadrati: <br />
+          <strong>{{ apartment.mq }}</strong>
+        </span>
+        <span
+          >Indirizzo: <br />
+          <strong>{{ apartment.address }}</strong>
+        </span>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.photo-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 10px;
+h1 {
+  text-align: center;
+  font-size: 40px;
+  font-weight: lighter;
+  padding-bottom: 5px;
 }
 
-.large-photo {
-  grid-column: 1 / 2;
-  grid-row: 1 / 3;
-  height: 100%;
+.contImages {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 20rem;
+  overflow: hidden;
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    color: black;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 1;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    &.prev {
+      left: 5px;
+    }
+
+    &.next {
+      right: 5px;
+    }
+  }
+
+  .img {
+    width: 20rem;
+    height: 20rem;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
 }
 
-.small-photo {
-  height: 100%;
+h3 {
+  margin: 2rem 0 2rem 0;
+  text-align: center;
+  font-weight: lighter;
 }
 
-.photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.col {
+  display: flex;
+  justify-content: center;
+}
+
+span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin: 0.5rem;
+  width: 10rem;
+  padding: 0.5rem;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 10rem;
 }
 </style>
