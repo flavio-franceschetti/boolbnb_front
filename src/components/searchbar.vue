@@ -1,21 +1,44 @@
 <script>
 import axios from "axios";
 import { store } from "../store";
+import { services } from "@tomtom-international/web-sdk-services";
 
 export default {
   name: "Searchbar",
   data() {
     return {
-      address: "",
-    };
+      servicesList: [],
+      address: '',       // Address input
+      distance: 20,      // Default distance
+      rooms: 1,          // Default rooms
+      beds: 1,           // Default beds
+      services: [],
+    };;
   },
   methods: {
-    searchAddress(address) {
-      this.$router.push({
-        name: "searchDetails",
-        params: { address: address },
+    getServices(){
+      axios
+      .get(store.apiUrl + "services")
+      .then((response) => {
+        this.servicesList = response.data.services;
+      })
+      .catch((error) => {
+        console.error("Errore durante la richiesta API:", error);
       });
     },
+    searchAddress() {
+      this.$router.push({
+        name: "searchDetails",
+        query: {
+          address: this.address,
+          distance: this.distance,
+          rooms: this.rooms,
+          beds: this.beds,
+          services: this.services.join(','),
+        }
+      });
+    },
+    
     getSearchBox() {
       axios.get(store.apiUrl + "tomtomKey").then((response) => {
         // SEZIONE DELLA SEARCHBOX
@@ -74,19 +97,47 @@ export default {
         // aggiungo l'evento al click che fa partire la ricerca
         svgLens.addEventListener("click", (event) => {
           this.address = searchInput.value;
-          this.searchAddress(this.address);
+          this.searchAddress();
         });
       });
     },
   },
   mounted() {
     this.getSearchBox();
+    this.getServices()
   },
 };
 </script>
 
 <template>
   <div id="search-box-container"></div>
+  <div class=" d-flex mt-2 justify-content-between">
+    <div class="d-flex flex-column">
+      <label for="distance">Distanza (km):</label>
+      <input v-model="distance" id="distance" type="number" placeholder="Distanza massima" />
+    </div>
+    <div class="d-flex flex-column">
+      <label for="rooms">Numero minimo di stanze:</label>
+      <input v-model="rooms" id="rooms" type="number" placeholder="Numero di stanze" />
+    </div>
+    <div class="d-flex flex-column">
+      <label for="beds">Numero minimo di letti:</label>
+      <input v-model="beds" id="beds" type="number" placeholder="Numero di letti" />
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+        <div v-for="service in servicesList" :key="service.id">
+          <label>
+            <input 
+              type="checkbox" 
+              :value="service.name" 
+              v-model="services"  
+            />
+            {{ service.name }}
+          </label>
+        </div>
+      </div>
+  
 </template>
 
 <style lang="scss">
