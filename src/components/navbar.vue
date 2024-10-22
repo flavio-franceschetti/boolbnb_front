@@ -21,7 +21,10 @@ export default {
     >
       <div>
         <!-- logo -->
-        <img src="/img/logo_bnb.png" alt="logo" />
+        <router-link :to="{ name: 'home' }"
+          ><img src="/img/logo_bnb.png" alt="logo"
+        /></router-link>
+
         <!-- titolo -->
         <span class="d-none d-lg-inline">Boolbnb</span>
       </div>

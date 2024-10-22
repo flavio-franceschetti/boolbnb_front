@@ -19,7 +19,7 @@ export default {
   mounted() {
     // SEZIONE DELLA SEARCHBOX
     // recuper la chiave dell'api inserita in config
-    const apiKey = "WZySL6v5EXqKQmi7su8ub06dFdayoFto";
+    const apiKey = "";
     // queste sono le impostazioni della searchBox di tomtom
     let options = {
       searchOptions: {
@@ -27,13 +27,11 @@ export default {
         language: "it-IT", // linguaggio della ricerca
         limit: 10, // numero di risultati visualizzati nel dropdown dei risultati
         countrySet: ["IT"], // Limita la ricerca all'Italia
-        //   entityType: "Address", // Mostra solo gli indirizzi
       },
       autocompleteOptions: {
         key: apiKey,
         language: "it-IT",
-        countrySet: ["IT"], // Limita i suggerimenti all'Italia
-        //   entityType: "Address", // Suggerisce solo indirizzi nel dropdown
+        countrySet: ["IT"],
       },
       labels: {
         suggestions: {
