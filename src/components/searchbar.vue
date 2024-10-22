@@ -67,6 +67,15 @@ export default {
             this.searchAddress(this.address);
           }
         });
+
+        let svgLens = document.querySelector(
+          ".tt-search-box-input-container div svg"
+        );
+
+        svgLens.addEventListener("click", (event) => {
+          this.address = searchInput.value;
+          this.searchAddress(this.address);
+        });
       });
     },
   },
@@ -87,6 +96,14 @@ export default {
   margin-top: 0;
   .tt-search-box-input-container {
     border-radius: 15px;
+  }
+}
+
+.tt-search-box-input-container {
+  div {
+    svg {
+      cursor: pointer;
+    }
   }
 }
 </style>
