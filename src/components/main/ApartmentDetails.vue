@@ -1,5 +1,4 @@
 <script>
-
 import axios from "axios";
 import { store } from "../../store";
 export default {
@@ -32,56 +31,68 @@ export default {
 
     prevImage() {
       this.imageIndex =
-        (this.imageIndex - 1 + this.apartment.images.length) % this.apartment.images.length;
+        (this.imageIndex - 1 + this.apartment.images.length) %
+        this.apartment.images.length;
     },
   },
   mounted() {
     const apartmentId = this.$route.params.id;
     this.getApartmentDetails(apartmentId);
-
   },
 };
 </script>
 
 <template>
-
   <div class="container">
     <h1>Appartamento in {{ apartment.address }}</h1>
-      <div class="contImages" v-for="(image, index) in apartment.images">
-        <button @click="prevImage" class="arrow prev">
-          <i class="fa-solid fa-arrow-left"></i>
-        </button>
-        <img :key="index" v-show="index === imageIndex" :src="image.img_path" alt="Appartamento" class="img" />
-        <button @click="nextImage" class="arrow next">
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
+    <div
+      class="contImages"
+      v-for="(image, index) in apartment.images"
+      :key="index"
+    >
+      <button @click="prevImage" class="arrow prev">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <img
+        :key="index"
+        v-show="index === imageIndex"
+        :src="image.img_path"
+        alt="Appartamento"
+        class="img"
+      />
+      <button @click="nextImage" class="arrow next">
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+    <h3>{{ apartment.title }}</h3>
+    <div class="info">
+      <div class="col">
+        <span
+          >Stanze: <br />
+          <strong>{{ apartment.rooms }}</strong>
+        </span>
+        <span
+          >Letti: <br />
+          <strong>{{ apartment.beds }}</strong>
+        </span>
+        <span
+          >bagni: <br />
+          <strong>{{ apartment.bathrooms }}</strong>
+        </span>
+        <span
+          >Metri Quadrati: <br />
+          <strong>{{ apartment.mq }}</strong>
+        </span>
+        <span
+          >Indirizzo: <br />
+          <strong>{{ apartment.address }}</strong>
+        </span>
       </div>
-      <h3>{{ apartment.title }}</h3>
-      <div class="info">
-        <div class="col">
-          <span>Stanze: <br>
-            <strong>{{ apartment.rooms }}</strong>
-          </span>
-          <span>Letti: <br>
-            <strong>{{ apartment.beds }}</strong>
-          </span>
-          <span>bagni: <br>
-            <strong>{{ apartment.bathrooms }}</strong>
-          </span>
-          <span>Metri Quadrati: <br>
-            <strong>{{ apartment.mq }}</strong>
-          </span>
-          <span>Indirizzo: <br>
-            <strong>{{ apartment.address }}</strong>
-          </span>
-        </div>
+    </div>
   </div>
-  </div>
-
 </template>
 
 <style lang="scss" scoped>
-
 h1 {
   text-align: center;
   font-size: 40px;
@@ -164,7 +175,4 @@ span {
   text-align: center;
   margin-bottom: 10rem;
 }
-
-
-
 </style>
