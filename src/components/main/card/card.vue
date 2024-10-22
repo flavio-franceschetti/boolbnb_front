@@ -51,10 +51,9 @@ export default {
       <button @click="prevImage" class="arrow prev">
         <i class="fa-solid fa-arrow-left"></i>
       </button>
-      <div
-        class="carousel-images"
-        :style="{ transform: 'translateX(-' + imageIndex * 100 + '%)' }"
-      >
+
+      <div class="carousel-images" :class="`carousel-slide-${imageIndex}`">
+
         <img
           v-for="(image, index) in images"
           :key="index"
@@ -81,8 +80,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-// generali
-
 .card-container {
   width: 100%;
   max-width: 350px;
@@ -98,8 +95,6 @@ export default {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   }
 }
-
-// carosello
 
 .carousel {
   position: relative;
@@ -146,8 +141,6 @@ export default {
     right: 10px;
   }
 }
-
-// dettagli
 
 .card-info {
   padding: 16px;
@@ -196,3 +189,4 @@ export default {
   }
 }
 </style>
+
