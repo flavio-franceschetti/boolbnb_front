@@ -28,7 +28,7 @@ const router = createRouter({
       component: ApartmentDetails,
     },
     {
-      path: "/ricerca-avanzata/:address",
+      path: "/ricerca-avanzata",
       name: "searchDetails",
       component: SearchDetails,
     },
