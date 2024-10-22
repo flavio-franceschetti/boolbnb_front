@@ -1,8 +1,13 @@
 <script>
 import axios from "axios";
 import { store } from "../../store";
+import ContactOwner from "./ContactOwner.vue";
+
 export default {
   name: "ApartmentDetails",
+  components: {
+    ContactOwner,
+  },
   data() {
     return {
       imageIndex: 0,
@@ -90,6 +95,10 @@ export default {
       </div>
     </div>
   </div>
+  <div class="mess">
+    <h2>Invia un'email</h2>
+    <router-link class="contacts" :to="{name: 'ContactOwner', params: { id: apartment.id }  }">Contatta il proprietario</router-link>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -173,6 +182,45 @@ span {
   align-items: center;
   justify-content: center;
   text-align: center;
+  margin-bottom: 3rem;
+}
+
+.mess {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 10rem;
+
+  h2 {
+    text-align: center;
+    font-size: 40px;
+    font-weight: lighter;
+    padding-bottom: 5px;
+  }
+
+  .contacts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 15rem;
+    height: 4rem;
+    overflow: hidden;
+    background-color: #34ab50;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 0.5rem;
+    margin-top: 1rem;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+      transform: translateY(-5px);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    }
+  }
 }
 </style>
