@@ -27,7 +27,7 @@ export default {
   beforeDestroy() {
     clearInterval(this.intervalId);
   },
-  
+
   methods: {
     nextImage() {
       this.imageIndex = (this.imageIndex + 1) % this.images.length;
@@ -51,7 +51,9 @@ export default {
       <button @click="prevImage" class="arrow prev">
         <i class="fa-solid fa-arrow-left"></i>
       </button>
+
       <div class="carousel-images" :class="`carousel-slide-${imageIndex}`">
+
         <img
           v-for="(image, index) in images"
           :key="index"
@@ -104,18 +106,6 @@ export default {
     display: flex;
     transition: transform 0.5s ease-in-out;
 
-    &.carousel-slide-0 {
-      transform: translateX(0);
-    }
-
-    &.carousel-slide-1 {
-      transform: translateX(-100%);
-    }
-
-    &.carousel-slide-2 {
-      transform: translateX(-200%);
-    }
-
     img {
       width: 100%;
       height: 250px;
@@ -144,11 +134,11 @@ export default {
   }
 
   .prev {
-    left: 10px;  
+    left: 10px;
   }
 
   .next {
-    right: 10px;  
+    right: 10px;
   }
 }
 
