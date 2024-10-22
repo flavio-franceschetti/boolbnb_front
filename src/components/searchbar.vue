@@ -27,13 +27,11 @@ export default {
         language: "it-IT", // linguaggio della ricerca
         limit: 10, // numero di risultati visualizzati nel dropdown dei risultati
         countrySet: ["IT"], // Limita la ricerca all'Italia
-        //   entityType: "Address", // Mostra solo gli indirizzi
       },
       autocompleteOptions: {
         key: apiKey,
         language: "it-IT",
-        countrySet: ["IT"], // Limita i suggerimenti all'Italia
-        //   entityType: "Address", // Suggerisce solo indirizzi nel dropdown
+        countrySet: ["IT"],
       },
       labels: {
         suggestions: {
