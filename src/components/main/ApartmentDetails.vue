@@ -66,7 +66,7 @@ export default {
     </div>
     <h3>{{ apartment.title }}</h3>
     <div class="info">
-      <div class="col">
+      <div class="d-flex flex-wrap justify-content-center">
         <span
           >Stanze: <br />
           <strong>{{ apartment.rooms }}</strong>
