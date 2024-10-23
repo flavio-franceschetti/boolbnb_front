@@ -12,6 +12,7 @@ export default {
             email: '',
             description: '',
             apartmentId: this.$route.params.id,
+            successMessage: '',
             errors: {
                 name: '',
                 surname: '',
@@ -59,8 +60,8 @@ export default {
                 };
 
                 try {
-                    await axios.post(store.apiUrl + '', formData);
-                    alert('Richiesta inviata con successo!');
+                    await axios.post(store.apiUrl + 'contatto', formData);
+                    this.successMessage = 'Messaggio inviato con successo!';
                 } catch (error) {
                     console.error('Errore durante l\'invio', error);
                     alert('Errore durante l\'invio.');
@@ -74,6 +75,9 @@ export default {
 
 <template>
     <div class="container mt-5">
+        <div v-if="successMessage" class="alert alert-success text-center successMess">
+            {{ successMessage }}
+        </div>
         <h2 class="mb-4">Contatta il proprietario</h2>
         <form @submit.prevent="submitForm">
             <div class="mb-3">
@@ -108,6 +112,14 @@ export default {
    
 
 <style lang="scss" scoped>
+
+.successMess {
+    position: fixed; 
+    top: 5rem; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    z-index: 1000;
+}
 
 .button {
     width: 5rem;
