@@ -59,7 +59,7 @@ export default {
                 };
 
                 try {
-                    await axios.post(store.apiUrl + '', formData);
+                    await axios.post(store.apiUrl + 'contatto', formData);
                     alert('Richiesta inviata con successo!');
                 } catch (error) {
                     console.error('Errore durante l\'invio', error);
