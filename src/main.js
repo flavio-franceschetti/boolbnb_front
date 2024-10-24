@@ -13,6 +13,7 @@ import ApartmentDetails from "./components/main/ApartmentDetails.vue";
 import Home from "./components/main/Home.vue";
 import SearchDetails from "./components/main/SearchDetails.vue";
 import ContactOwner from "./components/main/ContactOwner.vue";
+import NotFound from "./components/NotFound.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -21,6 +22,11 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: Home,
+    },
+    {
+      path: '/:notFound',
+      name: 'NotFound',
+      component: NotFound
     },
     {
       path: "/dettaglio-appartamento/:id",
