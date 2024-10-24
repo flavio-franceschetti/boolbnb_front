@@ -40,7 +40,7 @@ export default {
         v-for="apartment in apartments"
         :key="apartment.id"
       >
-        <Card :apartment="apartment" />
+        <Card :apartment="apartment" :images="images" />
       </div>
     </div>
   </div>

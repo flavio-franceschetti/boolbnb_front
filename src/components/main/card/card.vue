@@ -1,4 +1,7 @@
 <script>
+import { store } from "../../../store";
+import axios from "axios";
+
 export default {
   name: "Card",
   props: {
@@ -6,15 +9,19 @@ export default {
       type: Object,
       required: true,
     },
+    images: {
+      type: Object,
+      required: true,
+    }
   },
-
   data() {
     return {
       imageIndex: 0,
-      images: [
-        "https://www.lombardia.info/wp-content/uploads/sites/112/lago-como-villa.jpg",
-        "https://www.lombardia.info/wp-content/uploads/sites/112/menaggio-lago-como.jpg",
-        "https://www.scopriremilano.com/f/italia/milan/guia/lago-como-m.jpg",
+      img: [
+        // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGT4J84HPE7OAoL_jv0q1avOOlVhTxJnye3Q&s",
+        // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGT4J84HPE7OAoL_jv0q1avOOlVhTxJnye3Q&s",
+        // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGT4J84HPE7OAoL_jv0q1avOOlVhTxJnye3Q&s"
+
       ],
       intervalId: null,
     };
@@ -22,23 +29,30 @@ export default {
 
   mounted() {
     this.intervalId = setInterval(this.nextImage, 8000);
+    this.imgManager();
   },
 
   beforeDestroy() {
     clearInterval(this.intervalId);
   },
-  
+
   methods: {
     nextImage() {
-      this.imageIndex = (this.imageIndex + 1) % this.images.length;
-      console.log(this.imageIndex +  'dx');
+      this.imageIndex = (this.imageIndex + 1) % this.img.length;
+      console.log(this.imageIndex + "dx");
     },
 
     prevImage() {
       this.imageIndex =
-        (this.imageIndex - 1 + this.images.length) % this.images.length;
-        console.log(this.imageIndex + 'sx');
+        (this.imageIndex - 1 + this.img.length) % this.img.length;
+      console.log(this.imageIndex + "sx");
+    },
 
+    imgManager() {
+      this.apartment.images.forEach(res => {
+        this.img.push(res.img_path);
+        console.log(this.img);
+      });
     },
   },
 };
@@ -54,13 +68,16 @@ export default {
       <button @click="prevImage" class="arrow prev">
         <i class="fa-solid fa-arrow-left"></i>
       </button>
+      
       <div :class="'carousel-images translate-' + imageIndex">
+        
         <img
-          v-for="(image, index) in images"
+          v-for="(image, index) in img"
           :key="index"
           :src="image"
           class="carousel-image"
         />
+
       </div>
       <button @click="nextImage" class="arrow next">
         <i class="fa-solid fa-arrow-right"></i>
@@ -71,6 +88,7 @@ export default {
       <h3>{{ apartment.title }}</h3>
       <p><strong>Letti:</strong> {{ apartment.beds }}</p>
       <p><strong>Indirizzo:</strong> {{ apartment.address }}</p>
+      <p></p>
       <router-link
         :to="{ name: 'apartmentDetails', params: { id: apartment.id } }"
         class="details-link"
@@ -81,7 +99,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-// generali 
+// generali
 
 .card-container {
   width: 100%;
@@ -99,7 +117,7 @@ export default {
   }
 }
 
-// carosello 
+// carosello
 
 .carousel {
   position: relative;
@@ -110,20 +128,20 @@ export default {
   .carousel-images {
     display: flex;
     transition: transform 0.5s ease-in-out;
-    &.translate-0{
+    &.translate-0 {
       transform: translateX(0%);
     }
-    &.translate-1{
+    &.translate-1 {
       transform: translateX(-100%);
     }
-    &.translate-2{
+    &.translate-2 {
       transform: translateX(-200%);
     }
-    &.translate-3{
+    &.translate-3 {
       transform: translateX(-300%);
     }
     img {
-      width: 100%;
+      min-width: 100%;
       height: 250px;
       object-fit: cover;
       border-bottom: 1px solid #e0e0e0;
@@ -150,11 +168,11 @@ export default {
   }
 
   .prev {
-    left: 10px;  
+    left: 10px;
   }
 
   .next {
-    right: 10px;  
+    right: 10px;
   }
 }
 
