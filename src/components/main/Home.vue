@@ -31,7 +31,7 @@ export default {
 
 <template>
   <!-- Titolo della pagina esposizione -->
-  <h1>I nostri appartamenti</h1>
+  <h1>I nostri appartamenti in evidenza</h1>
   <!-- Container gestito tramite bootstrap grill per il responsive -->
   <div class="container">
     <div class="row">
