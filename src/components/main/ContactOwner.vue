@@ -13,6 +13,7 @@ export default {
             description: '',
             apartmentId: this.$route.params.id,
             successMessage: '',
+            returnMessage: '',
             errors: {
                 name: '',
                 surname: '',
@@ -62,6 +63,12 @@ export default {
                 try {
                     await axios.post(store.apiUrl + 'contatto', formData);
                     this.successMessage = 'Messaggio inviato con successo!';
+                    this.returnMessage = 'Reindirizzamento in corso...';
+                    // reindirizzamento alla pagina dell'appartamento dopo 3 secondi
+                    setTimeout(() => {
+                        this.successMessage = '';
+                        this.$router.push(`/dettaglio-appartamento/${this.apartmentId}`);
+                    }, 1500);
                 } catch (error) {
                     console.error('Errore durante l\'invio', error);
                     alert('Errore durante l\'invio.');
@@ -74,36 +81,39 @@ export default {
 
 
 <template>
-    <div class="container mt-5">
+    <div class="container mt-5 mb-5">
         <div v-if="successMessage" class="alert alert-success text-center successMess">
             {{ successMessage }}
+        </div>
+        <div v-if="returnMessage" class="alert alert-info text-center returnMess">
+            {{ returnMessage }}
         </div>
         <h2 class="mb-4">Contatta il proprietario</h2>
         <form @submit.prevent="submitForm">
             <div class="mb-3">
-                <label for="name" class="form-label">Nome:</label>
+                <label for="name" class="form-label">Nome *</label>
                 <input type="text" v-model="name" class="form-control" />
                 <div v-if="errors.name" class="text-danger">{{ errors.name }}</div>
             </div>
 
             <div class="mb-3">
-                <label for="surname" class="form-label">Cognome:</label>
+                <label for="surname" class="form-label">Cognome *</label>
                 <input type="text" v-model="surname" class="form-control" />
                 <div v-if="errors.surname" class="text-danger">{{ errors.surname }}</div>
             </div>
 
             <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
+                <label for="email" class="form-label">Email *</label>
                 <input type="email" v-model="email" class="form-control" />
                 <div v-if="errors.email" class="text-danger">{{ errors.email }}</div>
             </div>
 
             <div class="mb-3">
-                <label for="description" class="form-label">Descrizione:</label>
+                <label for="description" class="form-label">Descrizione *</label>
                 <textarea v-model="description" class="form-control" rows="3"></textarea>
                 <div v-if="errors.description" class="text-danger">{{ errors.description }}</div>
             </div>
-
+            <span>I campi con * sono obbligatori</span> <br>
             <button type="submit" class="button">Invia</button>
         </form>
     </div>
@@ -115,7 +125,15 @@ export default {
 
 .successMess {
     position: fixed; 
-    top: 5rem; 
+    top: 2rem; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    z-index: 1000;
+}
+
+.returnMess {
+    position: fixed; 
+    top: 6rem; 
     left: 50%; 
     transform: translateX(-50%); 
     z-index: 1000;
