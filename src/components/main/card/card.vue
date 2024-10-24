@@ -27,15 +27,18 @@ export default {
   beforeDestroy() {
     clearInterval(this.intervalId);
   },
-
+  
   methods: {
     nextImage() {
       this.imageIndex = (this.imageIndex + 1) % this.images.length;
+      console.log(this.imageIndex +  'dx');
     },
 
     prevImage() {
       this.imageIndex =
         (this.imageIndex - 1 + this.images.length) % this.images.length;
+        console.log(this.imageIndex + 'sx');
+
     },
   },
 };
@@ -51,9 +54,7 @@ export default {
       <button @click="prevImage" class="arrow prev">
         <i class="fa-solid fa-arrow-left"></i>
       </button>
-
-      <div class="carousel-images" :class="`carousel-slide-${imageIndex}`">
-
+      <div :class="'carousel-images translate-' + imageIndex">
         <img
           v-for="(image, index) in images"
           :key="index"
@@ -80,6 +81,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+// generali 
+
 .card-container {
   width: 100%;
   max-width: 350px;
@@ -96,6 +99,8 @@ export default {
   }
 }
 
+// carosello 
+
 .carousel {
   position: relative;
   overflow: hidden;
@@ -105,7 +110,18 @@ export default {
   .carousel-images {
     display: flex;
     transition: transform 0.5s ease-in-out;
-
+    &.translate-0{
+      transform: translateX(0%);
+    }
+    &.translate-1{
+      transform: translateX(-100%);
+    }
+    &.translate-2{
+      transform: translateX(-200%);
+    }
+    &.translate-3{
+      transform: translateX(-300%);
+    }
     img {
       width: 100%;
       height: 250px;
@@ -134,13 +150,15 @@ export default {
   }
 
   .prev {
-    left: 10px;
+    left: 10px;  
   }
 
   .next {
-    right: 10px;
+    right: 10px;  
   }
 }
+
+// dettagli
 
 .card-info {
   padding: 16px;
@@ -162,7 +180,7 @@ export default {
     display: inline-block;
     margin-top: 10px;
     padding: 8px 12px;
-    background-color: #28a745;
+    background-color: #007bff;
     color: white;
     border-radius: 5px;
     text-decoration: none;
@@ -189,4 +207,3 @@ export default {
   }
 }
 </style>
-
