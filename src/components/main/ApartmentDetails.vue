@@ -12,6 +12,8 @@ export default {
     return {
       imageIndex: 0,
       apartment: {},
+      longitude: "",
+      latitude: "",
     };
   },
   methods: {
@@ -21,7 +23,9 @@ export default {
         .get(store.apiUrl + "apartmentById/" + apartmentId)
         .then((response) => {
           this.apartment = response.data.apartment; // Assicurati che il percorso sia corretto
-          console.log(this.apartment);
+          // console.log(this.apartment);
+          this.longitude = response.data.apartment.longitude;
+          this.latitude = response.data.apartment.latitude;
 
           // console.log("Appartamento axios", this.apartmentDetails);
         })
@@ -39,10 +43,34 @@ export default {
         (this.imageIndex - 1 + this.apartment.images.length) %
         this.apartment.images.length;
     },
+
+    createMap() {
+      axios.get(store.apiUrl + "tomtomKey").then((response) => {
+        // console.log(response.data.apiKey);
+        // creo una constante dove inserisco la apiKey che prendo dal file config
+        const apiKey = response.data.apiKey;
+        const latitude = this.latitude;
+        const longitude = this.longitude;
+        let center = [longitude, latitude];
+        // Inizializza la mappa con tt.map che sono comandi della libreria tomtom
+        var map = tt.map({
+          key: apiKey, // Sostituisci con la tua chiave API
+          container: "map", // l'id del contenitore html in cui deve essere inserita la mappa
+          center: center, // Coordinate iniziali del centro della visualizzazione della mappa
+          zoom: 15, // livello di zoom iniziale della mappa, più è alto più è zoommato
+        });
+
+        map.on("load", () => {
+          // Aggiungi un marker sulla mappa con tt.maker
+          new tt.Marker().setLngLat(center).addTo(map);
+        });
+      });
+    },
   },
   mounted() {
     const apartmentId = this.$route.params.id;
     this.getApartmentDetails(apartmentId);
+    this.createMap();
   },
 };
 </script>
@@ -94,14 +122,27 @@ export default {
         </span>
       </div>
     </div>
+
+    <div class="mappa" id="map"></div>
   </div>
+
   <div class="mess">
     <h2>Invia un'email</h2>
-    <router-link class="contacts" :to="{name: 'ContactOwner', params: { id: apartment.id }  }">Contatta il proprietario</router-link>
+    <router-link
+      class="contacts"
+      :to="{ name: 'ContactOwner', params: { id: apartment.id } }"
+      >Contatta il proprietario</router-link
+    >
   </div>
 </template>
 
 <style lang="scss" scoped>
+.mappa {
+  width: 100%;
+  height: 500px;
+  margin: 30px 0 30px 0;
+}
+
 h1 {
   text-align: center;
   font-size: 40px;
@@ -186,7 +227,6 @@ span {
 }
 
 .mess {
-
   display: flex;
   flex-direction: column;
   align-items: center;
