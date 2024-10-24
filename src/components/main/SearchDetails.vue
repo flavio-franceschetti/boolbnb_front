@@ -29,9 +29,9 @@ export default {
       handler() {
         // Aggiorna le proprietà locali in base ai nuovi parametri di query
         this.address = this.$route.query.address || "";
-        this.distance = this.$route.query.distance || 20;
-        this.rooms = this.$route.query.rooms || 1;
-        this.beds = this.$route.query.beds || 1;
+        this.distance = Number(this.$route.query.distance) || 20;
+        this.rooms = Number(this.$route.query.rooms) || 1;
+        this.beds = Number(this.$route.query.beds) || 1;
         this.services = this.$route.query.services
           ? this.$route.query.services.split(",")
           : [];
