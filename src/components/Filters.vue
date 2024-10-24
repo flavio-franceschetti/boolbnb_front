@@ -78,7 +78,7 @@ export default {
         />
       </div>
     </div>
-    <div class="d-flex justify-content-between">
+    <div class="d-flex gap-2 justify-content-between">
       <div v-for="service in servicesList" :key="service.id">
         <label>
           <input
