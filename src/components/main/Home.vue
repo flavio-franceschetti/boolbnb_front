@@ -21,6 +21,7 @@ export default {
       .get(store.apiUrl + "apartments")
       .then((response) => {
         this.apartments = response.data.apartments;
+        // console.log(this.apartments);
       })
       .catch((error) => {
         console.error("Errore durante la richiesta API:", error);
@@ -40,7 +41,7 @@ export default {
         v-for="apartment in apartments"
         :key="apartment.id"
       >
-        <Card :apartment="apartment" :images="images" />
+        <Card :apartment="apartment" :images="apartment.images || []" />
       </div>
     </div>
   </div>

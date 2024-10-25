@@ -12,7 +12,7 @@ export default {
     images: {
       type: Object,
       required: true,
-    }
+    },
   },
   data() {
     return {
@@ -21,7 +21,6 @@ export default {
         // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGT4J84HPE7OAoL_jv0q1avOOlVhTxJnye3Q&s",
         // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGT4J84HPE7OAoL_jv0q1avOOlVhTxJnye3Q&s",
         // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGT4J84HPE7OAoL_jv0q1avOOlVhTxJnye3Q&s"
-
       ],
       intervalId: null,
     };
@@ -39,19 +38,19 @@ export default {
   methods: {
     nextImage() {
       this.imageIndex = (this.imageIndex + 1) % this.img.length;
-      console.log(this.imageIndex + "dx");
+      // console.log(this.imageIndex + "dx");
     },
 
     prevImage() {
       this.imageIndex =
         (this.imageIndex - 1 + this.img.length) % this.img.length;
-      console.log(this.imageIndex + "sx");
+      // console.log(this.imageIndex + "sx");
     },
 
     imgManager() {
-      this.apartment.images.forEach(res => {
+      this.apartment.images.forEach((res) => {
         this.img.push(res.img_path);
-        console.log(this.img);
+        // console.log(this.img);
       });
     },
   },
@@ -68,16 +67,14 @@ export default {
       <button @click="prevImage" class="arrow prev">
         <i class="fa-solid fa-arrow-left"></i>
       </button>
-      
+
       <div :class="'carousel-images translate-' + imageIndex">
-        
         <img
           v-for="(image, index) in img"
           :key="index"
           :src="image"
           class="carousel-image"
         />
-
       </div>
       <button @click="nextImage" class="arrow next">
         <i class="fa-solid fa-arrow-right"></i>
@@ -87,6 +84,11 @@ export default {
     <div class="card-info">
       <h3>{{ apartment.title }}</h3>
       <p><strong>Letti:</strong> {{ apartment.beds }}</p>
+      <p><strong>Camere:</strong> {{ apartment.rooms }}</p>
+      <p v-for="(service, index) in apartment.sevices" :key="index">
+        {{ service.name }}
+      </p>
+
       <p><strong>Indirizzo:</strong> {{ apartment.address }}</p>
       <p></p>
       <router-link
