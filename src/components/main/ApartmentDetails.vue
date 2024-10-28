@@ -62,20 +62,20 @@ export default {
       let valid = true;
 
       // Controllo Nome
-      if (this.formData.name.length > 50) {
+      if (this.formData.name && this.formData.name.length > 50) {
         this.errors.name = "Il Nome non può essere più lungo di 50 caratteri.";
         valid = false;
-      } else if (this.formData.name.length < 2) {
+      } else if (this.formData.name && this.formData.name.length < 2) {
         this.errors.name = "Il Nome deve contenere almeno 2 caratteri.";
         valid = false;
       }
 
       // Controllo Cognome
-      if (this.formData.surname.length > 50) {
+      if (this.formData.surname && this.formData.surname.length > 50) {
         this.errors.surname =
           "Il Cognome non può essere più lungo di 50 caratteri.";
         valid = false;
-      } else if (this.formData.surname.length < 2) {
+      } else if (this.formData.surname && this.formData.surname.length < 2) {
         this.errors.surname = "Il Cognome deve contenere almeno 2 caratteri.";
         valid = false;
       }
@@ -114,19 +114,13 @@ export default {
     },
 
     //metodi della gestione del form
-    async submitForm() {
+    submitForm() {
       if (this.validateForm()) {
-        try {
-          await axios
-            .post(store.apiUrl + "contatto", this.formData)
-            .then((response) => {
-              console.log(response.data, "messaggio inviato con successo");
-            });
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        console.log("Form non valido, correggi gli errori.");
+        axios
+          .post(store.apiUrl + "contatto", this.formData)
+          .then((response) => {
+            console.log(response.data, "messaggio inviato con successo");
+          });
       }
     },
 
@@ -181,6 +175,10 @@ export default {
             </div>
             <div>
               <i class="fa-solid fa-bed"></i> {{ apartment.beds }} Letti/o
+            </div>
+            <div>
+              <i class="fas fa-th"></i>
+              {{ apartment.mq }}m²
             </div>
           </div>
           <div>
@@ -272,7 +270,9 @@ export default {
                 id="floatingInput1"
               />
               <label for="floatingInput1">Cognome</label>
-              <div class="error" v-if="errors.name">{{ errors.surname }}</div>
+              <div class="error" v-if="errors.surname">
+                {{ errors.surname }}
+              </div>
             </div>
             <div class="form-floating mb-3">
               <input
@@ -282,7 +282,7 @@ export default {
                 id="floatingInput2"
               />
               <label for="floatingInput2">Email&ast;</label>
-              <div class="error" v-if="errors.name">{{ errors.email }}</div>
+              <div class="error" v-if="errors.email">{{ errors.email }}</div>
             </div>
             <div class="form-floating mb-3">
               <textarea
@@ -291,7 +291,9 @@ export default {
                 id="floatingTextarea2"
               ></textarea>
               <label for="floatingTextarea2">Messaggio&ast;</label>
-              <div class="error" v-if="errors.name">{{ errors.content }}</div>
+              <div class="error" v-if="errors.content">
+                {{ errors.content }}
+              </div>
             </div>
             <button type="submit" class="btn submit-btn">Invia</button>
           </form>
@@ -354,7 +356,7 @@ h1 {
 }
 
 .form-card {
-  height: 500px;
+  // height: 500px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 25px 20px;
   border-radius: 15px;

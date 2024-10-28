@@ -19,12 +19,35 @@ export default {
   <!-- Navbar -->
   <Navbar></Navbar>
 
-  <!-- Home -->
-  <router-view></router-view>
+  <div class="content">
+    <!-- Home -->
+    <router-view></router-view>
+  </div>
 
   <!-- Footer -->
-   <Footer></Footer>
-
+  <Footer></Footer>
 </template>
 
-<style scoped></style>
+<style scoped>
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.content {
+  min-height: calc(100vh - 172px - 92px);
+}
+
+.router-view {
+  flex-grow: 1; /* Fa espandere il contenuto principale */
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+}
+</style>
