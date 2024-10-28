@@ -163,10 +163,10 @@ export default {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container px-4">
     <h1>{{ apartment.title }}</h1>
-    <div class="row d-flex gap-3 justify-content-between">
-      <div class="col-5 align-self-center">
+    <div class="row flex-wrap gap-3 justify-content-between">
+      <div class="col-12 col-lg-5 align-self-center">
         <div class="info-card">
           <div class="mb-3">
             <h4>Informazioni dell'appartamento</h4>
@@ -198,7 +198,7 @@ export default {
           </div>
         </div>
       </div>
-      <div class="col-6 align-self-center">
+      <div class="col-12 col-lg-6 align-self-center">
         <div id="carouselExampleIndicators" class="carousel slide">
           <div class="carousel-indicators">
             <button
@@ -245,12 +245,12 @@ export default {
   </div>
   <!-- info and map section -->
   <div class="info-background">
-    <div class="container">
+    <div class="container px-4">
       <div class="row d-flex gap-3 justify-content-between">
-        <div class="col-6 align-self-center">
+        <div class="col-12 col-lg-6 align-self-center">
           <div class="mappa" id="map"></div>
         </div>
-        <div class="col-5 align-self-center form-card">
+        <div class="col-12 col-lg-5 align-self-center form-card">
           <div class="form-title">Contatta il proprietario</div>
           <!-- FORM MESSAGGIO -->
           <form @submit.prevent="submitForm">
@@ -314,6 +314,9 @@ h1 {
 }
 
 // crousel
+.carousel {
+  width: 100%;
+}
 .carousel-item img {
   width: 100%;
   height: 500px; /* Imposta l'altezza desiderata */
