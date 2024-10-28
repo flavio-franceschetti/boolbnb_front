@@ -32,7 +32,7 @@ export default {
 
 <template>
   <!-- Titolo della pagina esposizione -->
-  <h1>I nostri appartamenti in evidenza</h1>
+  <h1 class="my-5">I nostri appartamenti in evidenza</h1>
   <!-- Container gestito tramite bootstrap grill per il responsive -->
   <div class="container">
     <div class="row">
@@ -41,7 +41,7 @@ export default {
         v-for="apartment in apartments"
         :key="apartment.id"
       >
-        <Card :apartment="apartment"  />
+        <Card :apartment="apartment" />
       </div>
     </div>
   </div>

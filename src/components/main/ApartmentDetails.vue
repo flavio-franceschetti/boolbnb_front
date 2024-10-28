@@ -418,7 +418,7 @@ h1 {
   width: 100%;
   height: 500px;
   border-radius: 15px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 // info card
