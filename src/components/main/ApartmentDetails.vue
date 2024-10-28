@@ -7,6 +7,7 @@ export default {
     return {
       imageIndex: 0,
       apartment: {},
+      formSend: false,
       images: [],
       longitude: "",
       latitude: "",
@@ -120,6 +121,7 @@ export default {
           .post(store.apiUrl + "contatto", this.formData)
           .then((response) => {
             console.log(response.data, "messaggio inviato con successo");
+            this.formSend = true;
           });
       }
     },
@@ -157,7 +159,11 @@ export default {
 </script>
 
 <template>
-  <div class="container px-4">
+  <div class="container container-top px-4">
+    <router-link class="back-arr" :to="{ name: 'home' }">
+      <i class="fa-solid fa-arrow-left"></i
+    ></router-link>
+
     <h1>{{ apartment.title }}</h1>
     <div class="row flex-wrap gap-3 justify-content-between">
       <div class="col-12 col-lg-5 align-self-center">
@@ -295,7 +301,18 @@ export default {
                 {{ errors.content }}
               </div>
             </div>
-            <button type="submit" class="btn submit-btn">Invia</button>
+            <button type="submit" class="btn submit-btn my-2">Invia</button>
+            <div
+              :class="[
+                'form-alert',
+                'alert',
+                'alert-success',
+                { active: formSend },
+              ]"
+              role="alert"
+            >
+              Messaggio inviato!
+            </div>
           </form>
         </div>
       </div>
@@ -304,9 +321,20 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.back-arr {
+  display: inline;
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #28a745;
+}
+
 // general
 .container {
   padding: 80px 0;
+}
+
+.container-top {
+  padding-top: 30px;
 }
 
 h1 {
@@ -330,6 +358,15 @@ h1 {
 }
 
 // form
+
+.form-alert {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
 .error {
   color: #cc0000;
   font-size: 12px;
