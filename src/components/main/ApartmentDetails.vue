@@ -7,6 +7,7 @@ export default {
     return {
       imageIndex: 0,
       apartment: {},
+      formSend: false,
       images: [],
       longitude: "",
       latitude: "",
@@ -62,20 +63,20 @@ export default {
       let valid = true;
 
       // Controllo Nome
-      if (this.formData.name.length > 50) {
+      if (this.formData.name && this.formData.name.length > 50) {
         this.errors.name = "Il Nome non può essere più lungo di 50 caratteri.";
         valid = false;
-      } else if (this.formData.name.length < 2) {
+      } else if (this.formData.name && this.formData.name.length < 2) {
         this.errors.name = "Il Nome deve contenere almeno 2 caratteri.";
         valid = false;
       }
 
       // Controllo Cognome
-      if (this.formData.surname.length > 50) {
+      if (this.formData.surname && this.formData.surname.length > 50) {
         this.errors.surname =
           "Il Cognome non può essere più lungo di 50 caratteri.";
         valid = false;
-      } else if (this.formData.surname.length < 2) {
+      } else if (this.formData.surname && this.formData.surname.length < 2) {
         this.errors.surname = "Il Cognome deve contenere almeno 2 caratteri.";
         valid = false;
       }
@@ -114,19 +115,14 @@ export default {
     },
 
     //metodi della gestione del form
-    async submitForm() {
+    submitForm() {
       if (this.validateForm()) {
-        try {
-          await axios
-            .post(store.apiUrl + "contatto", this.formData)
-            .then((response) => {
-              console.log(response.data, "messaggio inviato con successo");
-            });
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        console.log("Form non valido, correggi gli errori.");
+        axios
+          .post(store.apiUrl + "contatto", this.formData)
+          .then((response) => {
+            console.log(response.data, "messaggio inviato con successo");
+            this.formSend = true;
+          });
       }
     },
 
@@ -163,10 +159,14 @@ export default {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container container-top px-4">
+    <router-link class="back-arr" :to="{ name: 'home' }">
+      <i class="fa-solid fa-arrow-left"></i
+    ></router-link>
+
     <h1>{{ apartment.title }}</h1>
-    <div class="row d-flex gap-3 justify-content-between">
-      <div class="col-5 align-self-center">
+    <div class="row flex-wrap gap-3 justify-content-between">
+      <div class="col-12 col-lg-5 align-self-center">
         <div class="info-card">
           <div class="mb-3">
             <h4>Informazioni dell'appartamento</h4>
@@ -181,6 +181,10 @@ export default {
             </div>
             <div>
               <i class="fa-solid fa-bed"></i> {{ apartment.beds }} Letti/o
+            </div>
+            <div>
+              <i class="fas fa-th"></i>
+              {{ apartment.mq }}m²
             </div>
           </div>
           <div>
@@ -198,7 +202,7 @@ export default {
           </div>
         </div>
       </div>
-      <div class="col-6 align-self-center">
+      <div class="col-12 col-lg-6 align-self-center">
         <div id="carouselExampleIndicators" class="carousel slide">
           <div class="carousel-indicators">
             <button
@@ -245,12 +249,12 @@ export default {
   </div>
   <!-- info and map section -->
   <div class="info-background">
-    <div class="container">
+    <div class="container px-4">
       <div class="row d-flex gap-3 justify-content-between">
-        <div class="col-6 align-self-center">
+        <div class="col-12 col-lg-6 align-self-center">
           <div class="mappa" id="map"></div>
         </div>
-        <div class="col-5 align-self-center form-card">
+        <div class="col-12 col-lg-5 align-self-center form-card">
           <div class="form-title">Contatta il proprietario</div>
           <!-- FORM MESSAGGIO -->
           <form @submit.prevent="submitForm">
@@ -272,7 +276,9 @@ export default {
                 id="floatingInput1"
               />
               <label for="floatingInput1">Cognome</label>
-              <div class="error" v-if="errors.name">{{ errors.surname }}</div>
+              <div class="error" v-if="errors.surname">
+                {{ errors.surname }}
+              </div>
             </div>
             <div class="form-floating mb-3">
               <input
@@ -282,7 +288,7 @@ export default {
                 id="floatingInput2"
               />
               <label for="floatingInput2">Email&ast;</label>
-              <div class="error" v-if="errors.name">{{ errors.email }}</div>
+              <div class="error" v-if="errors.email">{{ errors.email }}</div>
             </div>
             <div class="form-floating mb-3">
               <textarea
@@ -291,9 +297,22 @@ export default {
                 id="floatingTextarea2"
               ></textarea>
               <label for="floatingTextarea2">Messaggio&ast;</label>
-              <div class="error" v-if="errors.name">{{ errors.content }}</div>
+              <div class="error" v-if="errors.content">
+                {{ errors.content }}
+              </div>
             </div>
-            <button type="submit" class="btn submit-btn">Invia</button>
+            <button type="submit" class="btn submit-btn my-2">Invia</button>
+            <div
+              :class="[
+                'form-alert',
+                'alert',
+                'alert-success',
+                { active: formSend },
+              ]"
+              role="alert"
+            >
+              Messaggio inviato!
+            </div>
           </form>
         </div>
       </div>
@@ -302,9 +321,20 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.back-arr {
+  display: inline;
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #28a745;
+}
+
 // general
 .container {
   padding: 80px 0;
+}
+
+.container-top {
+  padding-top: 30px;
 }
 
 h1 {
@@ -314,6 +344,9 @@ h1 {
 }
 
 // crousel
+.carousel {
+  width: 100%;
+}
 .carousel-item img {
   width: 100%;
   height: 500px; /* Imposta l'altezza desiderata */
@@ -325,6 +358,15 @@ h1 {
 }
 
 // form
+
+.form-alert {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
 .error {
   color: #cc0000;
   font-size: 12px;
@@ -351,7 +393,7 @@ h1 {
 }
 
 .form-card {
-  height: 500px;
+  // height: 500px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 25px 20px;
   border-radius: 15px;
