@@ -1,49 +1,136 @@
 <script>
 import axios from "axios";
 import { store } from "../../store";
-import ContactOwner from "./ContactOwner.vue";
 
 export default {
-  name: "ApartmentDetails",
-  components: {
-    ContactOwner,
-  },
   data() {
     return {
       imageIndex: 0,
       apartment: {},
+      images: [],
       longitude: "",
       latitude: "",
+      formData: {
+        name: "",
+        surname: "",
+        email: "",
+        content: "",
+        apartment_id: "",
+      },
+      errors: {
+        name: "",
+        surname: "",
+        email: "",
+        content: "",
+      },
+      serviceIcons: {
+        "Wi-Fi": "fa-solid fa-wifi", // Wi-Fi
+        Piscina: "fa-solid fa-water", // Piscina
+        Parcheggio: "fa-solid fa-parking", // Parcheggio
+        "Aria Condizionata": "fa-solid fa-wind", // Aria Condizionata
+        "TV Satellitare": "fa-solid fa-tv", // TV Satellitare
+        Lavatrice: "fa-solid fa-tshirt", // Lavatrice
+        Palestra: "fa-solid fa-dumbbell", // Palestra
+        Giardino: "fa-solid fa-tree", // Giardino
+        Idromassaggio: "fa-solid fa-hot-tub", // Idromassaggio
+        Cucina: "fa-solid fa-utensils", // Cucina
+      },
     };
   },
   methods: {
-    getApartmentDetails(apartmentId) {
+    // dettagli dell appartamento selezionato
+    getApartmentDetails(apartmentSlug) {
       // Chiamata API per ottenere i dettagli dell'appartamento selezionato
       axios
-        .get(store.apiUrl + "apartmentById/" + apartmentId)
+        .get(store.apiUrl + "apartmentBySlug/" + apartmentSlug)
         .then((response) => {
           this.apartment = response.data.apartment; // Assicurati che il percorso sia corretto
-          // console.log(this.apartment);
+          console.log(this.apartment);
+          this.formData.apartment_id = response.data.apartment.id;
           this.longitude = response.data.apartment.longitude;
           this.latitude = response.data.apartment.latitude;
-
-          // console.log("Appartamento axios", this.apartmentDetails);
+          this.images = response.data.apartment.images;
         })
         .catch((error) => {
           console.error("Errore durante la richiesta API:", error);
         });
     },
 
-    nextImage() {
-      this.imageIndex = (this.imageIndex + 1) % this.apartment.images.length;
+    // Funzione per validare i campi del form
+    validateForm() {
+      this.clearErrors();
+      let valid = true;
+
+      // Controllo Nome
+      if (this.formData.name.length > 50) {
+        this.errors.name = "Il Nome non può essere più lungo di 50 caratteri.";
+        valid = false;
+      } else if (this.formData.name.length < 2) {
+        this.errors.name = "Il Nome deve contenere almeno 2 caratteri.";
+        valid = false;
+      }
+
+      // Controllo Cognome
+      if (this.formData.surname.length > 50) {
+        this.errors.surname =
+          "Il Cognome non può essere più lungo di 50 caratteri.";
+        valid = false;
+      } else if (this.formData.surname.length < 2) {
+        this.errors.surname = "Il Cognome deve contenere almeno 2 caratteri.";
+        valid = false;
+      }
+
+      // Controllo Email
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!this.formData.email) {
+        this.errors.email = "Il campo Email è obbligatorio.";
+        valid = false;
+      } else if (!emailPattern.test(this.formData.email)) {
+        this.errors.email = "Inserisci un'email valida.";
+        valid = false;
+      }
+
+      // Controllo Messaggio
+      if (!this.formData.content) {
+        this.errors.content = "Il campo Messaggio è obbligatorio.";
+        valid = false;
+      } else if (this.formData.content.length < 10) {
+        this.errors.content =
+          "Il Messaggio deve contenere almeno 10 caratteri.";
+        valid = false;
+      }
+
+      return valid;
     },
 
-    prevImage() {
-      this.imageIndex =
-        (this.imageIndex - 1 + this.apartment.images.length) %
-        this.apartment.images.length;
+    // Funzione per svuotare gli errori
+    clearErrors() {
+      this.errors = {
+        name: "",
+        surname: "",
+        email: "",
+        content: "",
+      };
     },
 
+    //metodi della gestione del form
+    async submitForm() {
+      if (this.validateForm()) {
+        try {
+          await axios
+            .post(store.apiUrl + "contatto", this.formData)
+            .then((response) => {
+              console.log(response.data, "messaggio inviato con successo");
+            });
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        console.log("Form non valido, correggi gli errori.");
+      }
+    },
+
+    // metodo per creare la mappa
     createMap() {
       axios.get(store.apiUrl + "tomtomKey").then((response) => {
         // console.log(response.data.apiKey);
@@ -68,8 +155,8 @@ export default {
     },
   },
   mounted() {
-    const apartmentId = this.$route.params.id;
-    this.getApartmentDetails(apartmentId);
+    const apartmentSlug = this.$route.params.slug;
+    this.getApartmentDetails(apartmentSlug);
     this.createMap();
   },
 };
@@ -77,190 +164,232 @@ export default {
 
 <template>
   <div class="container">
-    <h1>Appartamento in {{ apartment.address }}</h1>
-    <div
-      class="contImages"
-      v-for="(image, index) in apartment.images"
-      :key="index"
-    >
-      <button @click="prevImage" class="arrow prev">
-        <i class="fa-solid fa-arrow-left"></i>
-      </button>
-      <img
-        :key="index"
-        v-show="index === imageIndex"
-        :src="image.img_path"
-        alt="Appartamento"
-        class="img"
-      />
-      <button @click="nextImage" class="arrow next">
-        <i class="fa-solid fa-arrow-right"></i>
-      </button>
-    </div>
-    <h3>{{ apartment.title }}</h3>
-    <div class="info">
-      <div class="d-flex flex-wrap justify-content-center">
-        <span
-          >Stanze: <br />
-          <strong>{{ apartment.rooms }}</strong>
-        </span>
-        <span
-          >Letti: <br />
-          <strong>{{ apartment.beds }}</strong>
-        </span>
-        <span
-          >bagni: <br />
-          <strong>{{ apartment.bathrooms }}</strong>
-        </span>
-        <span
-          >Metri Quadrati: <br />
-          <strong>{{ apartment.mq }}</strong>
-        </span>
-        <span
-          >Indirizzo: <br />
-          <strong>{{ apartment.address }}</strong>
-        </span>
+    <h1>{{ apartment.title }}</h1>
+    <div class="row d-flex gap-3 justify-content-between">
+      <div class="col-5 align-self-center">
+        <div class="info-card">
+          <div class="mb-3">
+            <h4>Informazioni dell'appartamento</h4>
+            <h5>{{ apartment.address }}</h5>
+            <div>
+              <i class="fa-solid fa-street-view"></i>
+              {{ apartment.rooms }} Camere da letto
+            </div>
+            <div>
+              <i class="fa-solid fa-shower"></i>
+              {{ apartment.bathrooms }} Bagni/o
+            </div>
+            <div>
+              <i class="fa-solid fa-bed"></i> {{ apartment.beds }} Letti/o
+            </div>
+          </div>
+          <div>
+            <h4>Servizi disponibili</h4>
+            <div v-for="(service, index) in apartment.services" :key="index">
+              <div>
+                <i
+                  :class="
+                    serviceIcons[service.name] || 'fa-solid fa-question-circle'
+                  "
+                ></i>
+                {{ service.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 align-self-center">
+        <div id="carouselExampleIndicators" class="carousel slide">
+          <div class="carousel-indicators">
+            <button
+              v-for="(img, index) in images"
+              :key="index"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              :data-bs-slide-to="index"
+              class="active"
+              aria-current="true"
+              :aria-label="('Slide', index)"
+            ></button>
+          </div>
+          <div class="carousel-inner">
+            <div
+              v-for="(img, index) in images"
+              :key="index"
+              class="carousel-item active"
+            >
+              <img :src="img.img_path" class="d-block w-100" alt="..." />
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
       </div>
     </div>
-
-    <div class="mappa" id="map"></div>
   </div>
-
-  <div class="mess">
-    <h2>Invia un'email</h2>
-    <router-link
-      class="contacts"
-      :to="{ name: 'ContactOwner', params: { id: apartment.id } }"
-      >Contatta il proprietario</router-link
-    >
+  <!-- info and map section -->
+  <div class="info-background">
+    <div class="container">
+      <div class="row d-flex gap-3 justify-content-between">
+        <div class="col-6 align-self-center">
+          <div class="mappa" id="map"></div>
+        </div>
+        <div class="col-5 align-self-center form-card">
+          <div class="form-title">Contatta il proprietario</div>
+          <!-- FORM MESSAGGIO -->
+          <form @submit.prevent="submitForm">
+            <div class="form-floating mb-3">
+              <input
+                v-model="formData.name"
+                type="text"
+                class="form-control"
+                id="floatingInput"
+              />
+              <label for="floatingInput">Nome</label>
+              <div class="error" v-if="errors.name">{{ errors.name }}</div>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                v-model="formData.surname"
+                type="text"
+                class="form-control"
+                id="floatingInput1"
+              />
+              <label for="floatingInput1">Cognome</label>
+              <div class="error" v-if="errors.name">{{ errors.surname }}</div>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                v-model="formData.email"
+                type="email"
+                class="form-control"
+                id="floatingInput2"
+              />
+              <label for="floatingInput2">Email&ast;</label>
+              <div class="error" v-if="errors.name">{{ errors.email }}</div>
+            </div>
+            <div class="form-floating mb-3">
+              <textarea
+                v-model="formData.content"
+                class="form-control"
+                id="floatingTextarea2"
+              ></textarea>
+              <label for="floatingTextarea2">Messaggio&ast;</label>
+              <div class="error" v-if="errors.name">{{ errors.content }}</div>
+            </div>
+            <button type="submit" class="btn submit-btn">Invia</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.mappa {
-  width: 100%;
-  height: 500px;
-  margin: 30px 0 30px 0;
+// general
+.container {
+  padding: 80px 0;
 }
 
 h1 {
-  text-align: center;
   font-size: 40px;
-  font-weight: lighter;
-  padding-bottom: 5px;
+  font-weight: 500;
+  margin-bottom: 60px;
 }
 
-.contImages {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+// crousel
+.carousel-item img {
+  width: 100%;
+  height: 500px; /* Imposta l'altezza desiderata */
+  object-fit: cover; /* Ritaglia l'immagine per riempire il contenitore */
+}
+
+.carousel-inner {
+  border-radius: 15px;
+}
+
+// form
+.error {
+  color: #cc0000;
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+.submit-btn {
+  background-color: #28a745;
+  color: #fff;
   margin: 0 auto;
-  width: 20rem;
-  overflow: hidden;
-
-  .arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(255, 255, 255, 0.5);
-    border: none;
-    color: black;
-    font-size: 1.5rem;
-    padding: 0.5rem;
-    cursor: pointer;
-    transition: 0.3s;
-    z-index: 1;
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.8);
-    }
-
-    &.prev {
-      left: 5px;
-    }
-
-    &.next {
-      right: 5px;
-    }
-  }
-
-  .img {
-    width: 20rem;
-    height: 20rem;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: block;
+  padding: 8px 40px;
+  font-weight: 400;
+  margin-top: 30px;
+  &:hover {
+    background-color: #53b96a;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   }
 }
 
-h3 {
-  margin: 2rem 0 2rem 0;
-  text-align: center;
-  font-weight: lighter;
+.form-title {
+  font-size: 24px;
+  margin-bottom: 24px;
 }
 
-.col {
-  display: flex;
-  justify-content: center;
+.form-card {
+  height: 500px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 25px 20px;
+  border-radius: 15px;
+  background-color: #fff;
 }
 
-span {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  margin: 0.5rem;
-  width: 10rem;
-  padding: 0.5rem;
-}
-
-.info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.mess {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 10rem;
-
-  h2 {
-    text-align: center;
-    font-size: 40px;
-    font-weight: lighter;
-    padding-bottom: 5px;
+.form-floating {
+  textarea {
+    height: 100px;
+    resize: none;
   }
+}
 
-  .contacts {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    width: 15rem;
-    height: 4rem;
-    overflow: hidden;
-    background-color: #34ab50;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    padding: 0.5rem;
-    margin-top: 1rem;
-    color: white;
-    text-decoration: none;
-    transition: 0.3s;
+// info section
 
-    &:hover {
-      transform: scale(1.1);
-      transform: translateY(-5px);
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-    }
-  }
+.info-background {
+  background-color: #69c17d;
+}
+
+// mappa
+.mappa {
+  width: 100%;
+  height: 500px;
+  border-radius: 15px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+// info card
+.info-card {
+  display: flex; // Attiva Flexbox
+  flex-direction: column; // Organizza i figli in colonna
+  justify-content: center; // Centra verticalmente
+
+  height: 500px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 25px 30px;
+  border-radius: 15px;
+  background-color: #69c17d;
+  color: #fff;
 }
 </style>
