@@ -92,7 +92,7 @@ export default {
       <p><strong>Indirizzo:</strong> {{ apartment.address }}</p>
       <p></p>
       <router-link
-        :to="{ name: 'apartmentDetails', params: { id: apartment.id } }"
+        :to="{ name: 'apartmentDetails', params: { slug: apartment.slug } }"
         class="details-link"
         >Dettaglio</router-link
       >

@@ -12,7 +12,6 @@ import App from "./App.vue";
 import ApartmentDetails from "./components/main/ApartmentDetails.vue";
 import Home from "./components/main/Home.vue";
 import SearchDetails from "./components/main/SearchDetails.vue";
-import ContactOwner from "./components/main/ContactOwner.vue";
 import NotFound from "./components/NotFound.vue";
 
 const router = createRouter({
@@ -24,12 +23,12 @@ const router = createRouter({
       component: Home,
     },
     {
-      path: '/:notFound',
-      name: 'NotFound',
-      component: NotFound
+      path: "/:notFound",
+      name: "NotFound",
+      component: NotFound,
     },
     {
-      path: "/dettaglio-appartamento/:id",
+      path: "/dettaglio-appartamento/:slug",
       name: "apartmentDetails",
       component: ApartmentDetails,
     },
@@ -37,11 +36,6 @@ const router = createRouter({
       path: "/ricerca-avanzata",
       name: "searchDetails",
       component: SearchDetails,
-    },
-    {
-      path: "/contatta-proprietario/:id",
-      name: "ContactOwner",
-      component: ContactOwner,
     },
   ],
 });

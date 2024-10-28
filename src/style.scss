@@ -1,7 +1,7 @@
 /* Definizione dei colori di root */
 
-$green-color: #28a745; 
-$white-color: #ffffff; 
+$green-color: #28a745;
+$white-color: #ffffff;
 $black-color: #000000;
 
 // General
@@ -11,11 +11,11 @@ $black-color: #000000;
 //   box-sizing: border-box;
 // }
 
-
 // Definizione di background colo per classi Bootstrap
 .green {
   background-color: $green-color;
 }
 
-
-
+* {
+  font-family: "Roboto", sans-serif;
+}

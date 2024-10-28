@@ -12,52 +12,54 @@ export default {
 
 <template>
   <!-- Container Up -->
-  <div
-    class="container-lg text-center d-flex justify-content-between align-items-center p-2 gap-3"
-  >
-    <!-- Logo -->
+  <div class="nav-bar">
     <div
-      class="logo d-none d-md-block align-items-center justify-content-around"
+      class="container-lg text-center d-flex justify-content-between align-items-center py-3 gap-3"
     >
-      <div>
-        <!-- logo -->
-        <router-link :to="{ name: 'home' }"
-          ><img src="/img/logo_bnb.png" alt="logo"
-        /></router-link>
+      <!-- Logo -->
+      <div
+        class="logo d-none d-md-block align-items-center justify-content-around"
+      >
+        <div>
+          <!-- logo -->
+          <router-link :to="{ name: 'home' }"
+            ><img src="/img/logo_bnb.png" alt="logo"
+          /></router-link>
 
-        <!-- titolo -->
-        <span class="d-none d-lg-inline">Boolbnb</span>
+          <!-- titolo -->
+          <span class="d-none d-lg-inline">Boolbnb</span>
+        </div>
       </div>
-    </div>
 
-    <!-- Searcbar -->
-    <div class="type">
-      <Searchbar></Searchbar>
-    </div>
+      <!-- Searcbar -->
+      <div class="type">
+        <Searchbar></Searchbar>
+      </div>
 
-    <!-- Login -->
-    <div class="login d-flex justify-content-around gap-4">
-      <div class="dropdown">
-        <button
-          class="btn green btn-success dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <i class="fa-solid fa-user"></i>
-        </button>
-        <ul class="dropdown-menu">
-          <li>
-            <a class="dropdown-item" href="http://127.0.0.1:8000/register"
-              >Register</a
-            >
-          </li>
-          <li>
-            <a class="dropdown-item" href="http://127.0.0.1:8000/login"
-              >Login</a
-            >
-          </li>
-        </ul>
+      <!-- Login -->
+      <div class="login d-flex justify-content-around gap-4">
+        <div class="dropdown">
+          <button
+            class="btn green btn-success dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-user"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="http://127.0.0.1:8000/register"
+                >Register</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="http://127.0.0.1:8000/login"
+                >Login</a
+              >
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -66,6 +68,9 @@ export default {
 <style lang="scss" scoped>
 // Use of Scss
 @use "../style.scss" as *;
+.nav-bar {
+  box-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.1);
+}
 a {
   text-decoration: none;
   color: $green-color;
