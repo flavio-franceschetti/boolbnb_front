@@ -10,6 +10,9 @@ export default {
   data() {
     return {
       address: "", // Address input
+      distance: 20,
+      rooms: 1,
+      beds: 1
     };
   },
   methods: {
@@ -18,6 +21,9 @@ export default {
         name: "searchDetails",
         query: {
           address: this.address,
+          distance: this.distance,
+          rooms: this.rooms,
+          beds: this.beds,
         },
       });
     },

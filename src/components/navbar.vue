@@ -19,16 +19,16 @@ export default {
       <!-- Logo -->
       <div
         class="logo d-none d-md-block align-items-center justify-content-around"
-      >
+      ><router-link :to="{ name: 'home' }">
         <div>
           <!-- logo -->
-          <router-link :to="{ name: 'home' }"
-            ><img src="/img/logo_bnb.png" alt="logo"
-          /></router-link>
+          <img src="/img/logo_bnb.png" alt="logo"
+          />
 
           <!-- titolo -->
-          <span class="d-none d-lg-inline">Boolbnb</span>
+          <span class=" text-black d-none d-lg-inline">Boolbnb</span>
         </div>
+      </router-link>
       </div>
 
       <!-- Searcbar -->

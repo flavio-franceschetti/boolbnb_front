@@ -9,10 +9,10 @@ export default {
       type: Object,
       required: true,
     },
-    images: {
-      type: Object,
-      required: true,
-    },
+    // images: {
+    //   type: Object,
+    //   required: true,
+    // },
   },
   data() {
     return {
@@ -83,14 +83,16 @@ export default {
 
     <div class="card-info">
       <h3>{{ apartment.title }}</h3>
+      <p><strong>Indirizzo:</strong> {{ apartment.address }}</p>
+      <p v-if="apartment.distance"><strong>Distanza:</strong> {{ parseFloat(apartment.distance).toFixed(1).replace('.',',') }} km</p>
       <p><strong>Letti:</strong> {{ apartment.beds }}</p>
       <p><strong>Camere:</strong> {{ apartment.rooms }}</p>
-      <p v-for="(service, index) in apartment.sevices" :key="index">
-        {{ service.name }}
-      </p>
+      <p><strong>Servizi:</strong></p>
+      <ul class="d-flex flex-wrap ps-0 justify-content-center gap-2">
+        <li class="badge bg-success" v-for="(service, index) in apartment.services" :key="index">{{ service.name }}</li>
+      </ul>
 
-      <p><strong>Indirizzo:</strong> {{ apartment.address }}</p>
-      <p></p>
+      
       <router-link
         :to="{ name: 'apartmentDetails', params: { slug: apartment.slug } }"
         class="details-link"
