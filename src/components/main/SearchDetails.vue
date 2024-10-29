@@ -85,6 +85,7 @@ export default {
           // Considera di aggiungere un feedback per l'utente qui in caso di errore
         });
     },
+
     updateQuery(param, value) {
       // Aggiorna i parametri di query nella rotta
       this.$router.push({ query: { ...this.$route.query, [param]: value } });
@@ -119,11 +120,15 @@ export default {
   <div class="container">
     <div class="row">
       <div
+        v-if="apartments.length > 0"
         class="col-lg-3 col-md-6 col-sm-12 col-mb-4 d-flex justify-content-around mb-5 mt-3"
         v-for="apartment in apartments"
         :key="apartment.id"
       >
         <Card :apartment="apartment" />
+      </div>
+      <div v-else class="my-5">
+        <h1>Nessun risultato...</h1>
       </div>
     </div>
   </div>
