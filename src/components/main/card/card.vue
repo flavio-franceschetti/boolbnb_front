@@ -81,24 +81,22 @@ export default {
       </button>
     </div>
 
-    <div class="card-info">
-      <h3>{{ apartment.title }}</h3>
-      <p><strong>Indirizzo:</strong> {{ apartment.address }}</p>
-      <p v-if="apartment.distance"><strong>Distanza:</strong> {{ parseFloat(apartment.distance).toFixed(1).replace('.',',') }} km</p>
-      <p><strong>Letti:</strong> {{ apartment.beds }}</p>
-      <p><strong>Camere:</strong> {{ apartment.rooms }}</p>
-      <p><strong>Servizi:</strong></p>
-      <ul class="d-flex flex-wrap ps-0 justify-content-center gap-2">
-        <li class="badge bg-success" v-for="(service, index) in apartment.services" :key="index">{{ service.name }}</li>
-      </ul>
-
-      
-      <router-link
-        :to="{ name: 'apartmentDetails', params: { slug: apartment.slug } }"
-        class="details-link"
-        >Dettaglio</router-link
-      >
-    </div>
+    <router-link
+      :to="{ name: 'apartmentDetails', params: { slug: apartment.slug } }"
+      class="card-link"
+    >
+      <div class="card-info">
+        <h3>{{ apartment.title }}</h3>
+        <p><strong>Indirizzo:</strong> {{ apartment.address }}</p>
+        <p v-if="apartment.distance"><strong>Distanza:</strong> {{ parseFloat(apartment.distance).toFixed(1).replace('.',',') }} km</p>
+        <p><strong>Letti:</strong> {{ apartment.beds }}</p>
+        <p><strong>Camere:</strong> {{ apartment.rooms }}</p>
+        <p><strong>Servizi:</strong></p>
+        <ul class="d-flex flex-wrap ps-0 justify-content-center gap-2">
+          <li class="badge bg-success" v-for="(service, index) in apartment.services" :key="index">{{ service.name }}</li>
+        </ul>
+      </div>
+    </router-link>
   </div>
 </template>
 
@@ -182,34 +180,37 @@ export default {
 
 // dettagli
 
-.card-info {
-  padding: 16px;
-  text-align: center;
+.card-link {
+  text-decoration: none;
+  .card-info {
+    padding: 16px;
+    text-align: center;
 
-  h3 {
-    margin: 10px 0;
-    font-size: 18px;
-    color: #333;
-  }
+    h3 {
+      margin: 10px 0;
+      font-size: 18px;
+      color: #333;
+    }
 
-  p {
-    margin: 5px 0;
-    font-size: 14px;
-    color: #666;
-  }
+    p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+    }
 
-  .details-link {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 8px 12px;
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+    .details-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
 
-    &:hover {
-      background-color: #0056b3;
+      &:hover {
+        background-color: #0056b3;
+      }
     }
   }
 }
