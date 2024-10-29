@@ -92,7 +92,7 @@ export default {
           <strong>Distanza:</strong>
           {{ parseFloat(apartment.distance).toFixed(1).replace(".", ",") }} km
         </p>
-        <div class="d-flex gap-2 justify-content-center">
+        <div class="d-flex justify-content-center gap-2">
           <p><strong>Letti:</strong> {{ apartment.beds }}</p>
           <p><strong>Camere:</strong> {{ apartment.rooms }}</p>
         </div>
