@@ -88,12 +88,23 @@ export default {
       <div class="card-info">
         <h3>{{ apartment.title }}</h3>
         <p><strong>Indirizzo:</strong> {{ apartment.address }}</p>
-        <p v-if="apartment.distance"><strong>Distanza:</strong> {{ parseFloat(apartment.distance).toFixed(1).replace('.',',') }} km</p>
-        <p><strong>Letti:</strong> {{ apartment.beds }}</p>
-        <p><strong>Camere:</strong> {{ apartment.rooms }}</p>
+        <p v-if="apartment.distance">
+          <strong>Distanza:</strong>
+          {{ parseFloat(apartment.distance).toFixed(1).replace(".", ",") }} km
+        </p>
+        <div class="d-flex gap-2 justify-content-center">
+          <p><strong>Letti:</strong> {{ apartment.beds }}</p>
+          <p><strong>Camere:</strong> {{ apartment.rooms }}</p>
+        </div>
         <p><strong>Servizi:</strong></p>
         <ul class="d-flex flex-wrap ps-0 justify-content-center gap-2">
-          <li class="badge bg-success" v-for="(service, index) in apartment.services" :key="index">{{ service.name }}</li>
+          <li
+            class="badge bg-success"
+            v-for="(service, index) in apartment.services"
+            :key="index"
+          >
+            {{ service.name }}
+          </li>
         </ul>
       </div>
     </router-link>
