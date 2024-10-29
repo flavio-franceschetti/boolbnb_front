@@ -14,18 +14,22 @@ export default {
       apartments: [],
     };
   },
-  methods: {},
+  methods: {
+    getApartments() {
+      //  Chiamata API per ottenere i dati degli appartamenti
+      axios
+        .get(store.apiUrl + "apartments")
+        .then((response) => {
+          this.apartments = response.data.apartments;
+          // console.log(this.apartments);
+        })
+        .catch((error) => {
+          console.error("Errore durante la richiesta API:", error);
+        });
+    },
+  },
   mounted() {
-    // Chiamata API per ottenere i dati degli appartamenti
-    axios
-      .get(store.apiUrl + "apartments")
-      .then((response) => {
-        this.apartments = response.data.apartments;
-        // console.log(this.apartments);
-      })
-      .catch((error) => {
-        console.error("Errore durante la richiesta API:", error);
-      });
+    this.getApartments();
   },
 };
 </script>
