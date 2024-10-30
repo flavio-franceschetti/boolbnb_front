@@ -16,6 +16,11 @@ export default {
   },
   data() {
     return {
+     
+     ViewsData : {
+      apartment_id:'',
+      ip_address: '',
+     },
       imageIndex: 0,
       img: [
         // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGT4J84HPE7OAoL_jv0q1avOOlVhTxJnye3Q&s",
@@ -53,16 +58,63 @@ export default {
         // console.log(this.img);
       });
     },
-  },
+
+    async fetchIpAddress() {
+      try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        // console.log(data.ip);
+        return data.ip;
+      } catch (error) {
+        console.error('Errore nel recupero dell\'indirizzo IP:', error);
+        return null; // Gestisci il caso in cui non riusciamo a recuperare l'IP
+      }
+    },
+
+    async handleClick(apartment_id) {
+
+  try {
+    // Recupera l'indirizzo IP dell'utente
+    const ip_address = await this.fetchIpAddress();
+    
+    // Registra la visualizzazione chiamando recordView
+    await this.recordView(apartment_id, ip_address);
+  } catch (error) {
+    console.error('Errore nel registrare la visualizzazione:', error);
+  } finally {
+    // Naviga comunque alla pagina dei dettagli
+    // this.$router.push({ name: 'apartmentDetails', params: { slug: this.apartment.slug } });
+  }
+},
+
+
+
+async recordView(apartment_id, ip_address) {
+
+  this.ViewsData.apartment_id = apartment_id;
+  this.ViewsData.ip_address = ip_address;
+  
+  console.log(this.ViewsData);
+  
+  try {
+    await axios.post(store.apiUrl + 'views', this.ViewsData);
+    console.log(`Visualizzazione registrata per l'appartamento ID: ${this.apartment.id}`);
+  } catch (error) {
+    console.error('Errore nel registrare la visualizzazione:', error);
+    throw error; // Rilancia l'errore per gestirlo in handleClick
+  }
+}
+}
 };
 </script>
+
 
 <template>
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
   />
-  <div class="card-container" @click="handleClick">
+  <div class="card-container" @click="handleClick(apartment.id)">
     <div class="carousel">
       <button @click="prevImage" class="arrow prev">
         <i class="fa-solid fa-arrow-left"></i>
