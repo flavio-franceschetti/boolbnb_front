@@ -24,6 +24,8 @@ export default {
         email: "",
         content: "",
       },
+      formSend: false,
+      showSubmit: true,
       serviceIcons: {
         "Wi-Fi": "fa-solid fa-wifi", // Wi-Fi
         Piscina: "fa-solid fa-water", // Piscina
@@ -124,8 +126,18 @@ export default {
             this.formSend = true;
           });
       }
+      this.formSend = true;
+      this.showSubmit = false;
+      this.clearForm();
     },
-
+    clearForm() {
+      this.formData = {
+        name: '',
+        surname: '',
+        email: '',
+        content: ''
+      };
+    },
     // metodo per creare la mappa
     createMap() {
       axios.get(store.apiUrl + "tomtomKey").then((response) => {
@@ -259,58 +271,27 @@ export default {
           <!-- FORM MESSAGGIO -->
           <form @submit.prevent="submitForm">
             <div class="form-floating mb-3">
-              <input
-                v-model="formData.name"
-                type="text"
-                class="form-control"
-                id="floatingInput"
-              />
+              <input v-model="formData.name" type="text" class="form-control" id="floatingInput" />
               <label for="floatingInput">Nome</label>
               <div class="error" v-if="errors.name">{{ errors.name }}</div>
             </div>
             <div class="form-floating mb-3">
-              <input
-                v-model="formData.surname"
-                type="text"
-                class="form-control"
-                id="floatingInput1"
-              />
+              <input v-model="formData.surname" type="text" class="form-control" id="floatingInput1" />
               <label for="floatingInput1">Cognome</label>
-              <div class="error" v-if="errors.surname">
-                {{ errors.surname }}
-              </div>
+              <div class="error" v-if="errors.surname">{{ errors.surname }}</div>
             </div>
             <div class="form-floating mb-3">
-              <input
-                v-model="formData.email"
-                type="email"
-                class="form-control"
-                id="floatingInput2"
-              />
+              <input v-model="formData.email" type="email" class="form-control" id="floatingInput2" />
               <label for="floatingInput2">Email&ast;</label>
               <div class="error" v-if="errors.email">{{ errors.email }}</div>
             </div>
             <div class="form-floating mb-3">
-              <textarea
-                v-model="formData.content"
-                class="form-control"
-                id="floatingTextarea2"
-              ></textarea>
+              <textarea v-model="formData.content" class="form-control" id="floatingTextarea2"></textarea>
               <label for="floatingTextarea2">Messaggio&ast;</label>
-              <div class="error" v-if="errors.content">
-                {{ errors.content }}
-              </div>
+              <div class="error" v-if="errors.content">{{ errors.content }}</div>
             </div>
-            <button type="submit" class="btn submit-btn my-2">Invia</button>
-            <div
-              :class="[
-                'form-alert',
-                'alert',
-                'alert-success',
-                { active: formSend },
-              ]"
-              role="alert"
-            >
+            <button v-if="showSubmit" type="submit" class="btn submit-btn my-2">Invia</button>
+            <div :class="['form-alert', 'alert', 'alert-success', { active: formSend }]" role="alert">
               Messaggio inviato!
             </div>
           </form>
