@@ -38,10 +38,10 @@ export default {
   <!-- Titolo della pagina esposizione -->
   <h1 class="my-5">I nostri appartamenti in evidenza</h1>
   <!-- Container gestito tramite bootstrap grill per il responsive -->
-  <div class="container">
+  <div class="container pb-5">
     <div class="row">
       <div
-        class="col-lg-4 col-md-5 col-7 mb-4 d-flex justify-content-center px-3 mx-4 mx-md-0"
+        class="col-lg-4 col-md-5 col-11 col-sm-9 mb-4 d-flex justify-content-center px-3 mx-4 mx-md-0"
         v-for="apartment in apartments"
         :key="apartment.id"
       >
