@@ -53,6 +53,8 @@ export default {
           this.longitude = response.data.apartment.longitude;
           this.latitude = response.data.apartment.latitude;
           this.images = response.data.apartment.images;
+
+          this.createMap();
         })
         .catch((error) => {
           console.error("Errore durante la richiesta API:", error);
@@ -165,7 +167,6 @@ export default {
   mounted() {
     const apartmentSlug = this.$route.params.slug;
     this.getApartmentDetails(apartmentSlug);
-    this.createMap();
   },
 };
 </script>
