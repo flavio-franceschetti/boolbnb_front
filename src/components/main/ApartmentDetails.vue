@@ -269,7 +269,7 @@ export default {
         <div class="col-12 col-lg-5 align-self-center form-card">
           <div class="form-title">Contatta il proprietario</div>
           <!-- FORM MESSAGGIO -->
-          <form @submit.prevent="submitForm">
+          <form v-if="!formSend" @submit.prevent="submitForm">
             <div class="form-floating mb-3">
               <input v-model="formData.name" type="text" class="form-control" id="floatingInput" />
               <label for="floatingInput">Nome</label>
@@ -291,10 +291,10 @@ export default {
               <div class="error" v-if="errors.content">{{ errors.content }}</div>
             </div>
             <button v-if="showSubmit" type="submit" class="btn submit-btn my-2">Invia</button>
-            <div :class="['form-alert', 'alert', 'alert-success', { active: formSend }]" role="alert">
-              Messaggio inviato!
-            </div>
           </form>
+          <div v-if="formSend" class="alert alert-success" role="alert">
+            Messaggio inviato con successo!
+          </div>
         </div>
       </div>
     </div>
