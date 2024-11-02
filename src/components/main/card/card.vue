@@ -222,9 +222,10 @@ async recordView(apartment_id, ip_address) {
     border: none;
     font-size: 20px;
     cursor: pointer;
-    padding: 10px;
     z-index: 1;
     border-radius: 50%;
+    width: 2em;
+    height: 2em;
     transition: background-color 0.2s ease;
 
     &:hover {
