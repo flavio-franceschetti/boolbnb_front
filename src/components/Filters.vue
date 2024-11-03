@@ -41,6 +41,14 @@ export default {
         services: this.localServices,
       });
     },
+    resetFilters(){
+      this.$emit("update-filters", {
+        distance: 20,
+        rooms: 1,
+        beds: 1,
+        services: "",
+      });
+    }
   },
 };
 </script>
@@ -98,7 +106,10 @@ export default {
       </div>
     </div>
 
-    <button class="button" @click="applyFilters">Applica Filtri</button>
+    <div class=" d-flex gap-3">
+      <button class="button" @click="applyFilters">Applica Filtri</button>
+      <button class="button btn-red" @click="resetFilters">Annulla Filtri</button>
+    </div>
   </div>
 </template>
 
@@ -139,6 +150,14 @@ label {
   color: #04aa6d;
 }
 
+.btn-red {
+  background-color: red; /* Green */
+  border: 1px solid red;
+  &:hover {
+    background-color: white; /* Green */
+    color: red;
+  }
+}
 // Ceckbox css
 .checkbox-container {
   display: inline-flex;
