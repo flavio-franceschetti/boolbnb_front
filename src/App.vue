@@ -2,9 +2,9 @@
 // App principale di Vue
 
 // Imports
-import Navbar from "./components/Navbar.vue";
 import Home from "./components/main/Home.vue";
 import Footer from "./components/main/Footer.vue";
+import Navbar from "./components/Navbar.vue";
 
 export default {
   components: {
