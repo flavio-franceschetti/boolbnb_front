@@ -46,9 +46,9 @@ export default {
 </script>
 <template>
   <div class="filters">
-    <div>
-      <div class=" d-flex justify-content-between">
-        <div class="d-flex flex-column">
+    <div class="container">
+      <div class=" row-cols-1 row-cols-md-3 d-md-flex">
+        <div class=" col d-flex flex-column">
           <label for="distance">Distanza (km)</label>
           <input
             @keyup.enter="applyFilters"
@@ -59,8 +59,8 @@ export default {
             placeholder="Distanza massima"
           />
         </div>
-        <div class="d-flex flex-column">
-          <label for="rooms">N. Stanze</label>
+        <div class=" col d-flex flex-column">
+          <label for="rooms">N. Camere</label>
           <input
             @keyup.enter="applyFilters"
             v-model="localRooms"
@@ -70,8 +70,8 @@ export default {
             placeholder="Numero di stanze"
           />
         </div>
-        <div class="d-flex flex-column">
-          <label for="beds">N. letti</label>
+        <div class=" col d-flex flex-column">
+          <label for="beds">N. Letti</label>
           <input
             @keyup.enter="applyFilters"
             v-model="localBeds"
@@ -82,7 +82,7 @@ export default {
           />
         </div>
       </div>
-      <div id="boxes" class="d-flex gap-2 justify-content-around">
+      <div id="boxes" class=" col d-flex gap-2 justify-content-around">
         <div v-for="service in servicesList" :key="service.id">
           <label class="cekcheckbox-container d-flex flex-column align-items-center text-center">
             <input
