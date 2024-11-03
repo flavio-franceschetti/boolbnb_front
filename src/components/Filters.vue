@@ -47,38 +47,40 @@ export default {
 <template>
   <div class="filters">
     <div>
-      <div class="d-flex flex-column">
-        <label for="distance">Distanza (km)</label>
-        <input
-          @keyup.enter="applyFilters"
-          v-model="localDistance"
-          id="distance"
-          type="number"
-          class="input"
-          placeholder="Distanza massima"
-        />
-      </div>
-      <div class="d-flex flex-column">
-        <label for="rooms">N. Stanze</label>
-        <input
-          @keyup.enter="applyFilters"
-          v-model="localRooms"
-          id="rooms"
-          type="number"
-          class="input"
-          placeholder="Numero di stanze"
-        />
-      </div>
-      <div class="d-flex flex-column">
-        <label for="beds">N. letti</label>
-        <input
-          @keyup.enter="applyFilters"
-          v-model="localBeds"
-          id="beds"
-          type="number"
-          placeholder="Numero di letti"
-          class="input"
-        />
+      <div class=" d-flex justify-content-between">
+        <div class="d-flex flex-column">
+          <label for="distance">Distanza (km)</label>
+          <input
+            @keyup.enter="applyFilters"
+            v-model="localDistance"
+            id="distance"
+            type="number"
+            class="input"
+            placeholder="Distanza massima"
+          />
+        </div>
+        <div class="d-flex flex-column">
+          <label for="rooms">N. Stanze</label>
+          <input
+            @keyup.enter="applyFilters"
+            v-model="localRooms"
+            id="rooms"
+            type="number"
+            class="input"
+            placeholder="Numero di stanze"
+          />
+        </div>
+        <div class="d-flex flex-column">
+          <label for="beds">N. letti</label>
+          <input
+            @keyup.enter="applyFilters"
+            v-model="localBeds"
+            id="beds"
+            type="number"
+            placeholder="Numero di letti"
+            class="input"
+          />
+        </div>
       </div>
       <div id="boxes" class="d-flex gap-2 justify-content-around">
         <div v-for="service in servicesList" :key="service.id">
