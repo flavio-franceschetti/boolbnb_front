@@ -51,7 +51,7 @@ export default {
           <ul class="dropdown-menu">
             <li>
               <a class="dropdown-item" href="http://127.0.0.1:8000/register"
-                >Register</a
+                >Registrati</a
               >
             </li>
             <li>
