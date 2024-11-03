@@ -128,18 +128,9 @@ export default {
             this.formSend = true;
           });
       }
-      this.formSend = true;
-      this.showSubmit = false;
-      this.clearForm();
+  
     },
-    clearForm() {
-      this.formData = {
-        name: '',
-        surname: '',
-        email: '',
-        content: ''
-      };
-    },
+    
     // metodo per creare la mappa
     createMap() {
       axios.get(store.apiUrl + "tomtomKey").then((response) => {
